@@ -6,7 +6,6 @@ export default class Home extends Component {
 
     openSlideMenu() {
         this.props.navigation.navigate('DrawerOpen');
-        // this.props.navigation.navigate('Authentication_Screen');
     }
 
     render() {
