@@ -16,10 +16,11 @@ export default class Home extends Component {
       <View style={{ flex: 1, backgroundColor: '#e3e2e0' }}>
         <Headers navigator={this.props.navigation} />
         <ScrollView>
+          <Collection />
+          <Category />
           <TopProduct />
         </ScrollView>
-        {/* <Collection />
-        <Category /> */}
+
       </View>
     );
   }
