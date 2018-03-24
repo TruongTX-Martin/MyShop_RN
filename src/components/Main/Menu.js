@@ -15,13 +15,14 @@ export default class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogIn: true
+      isLogIn: false
     };
   }
 
   toAuthentication() {
     console.log('to authentication');
-    this.props.navigation.navigate('Authentication');
+    this.props.navigation.navigate('DrawerClose');
+    this.props.navigation.navigate('Authentication', { navigation: this.props.navigation });
   }
 
   toChangeInfo() {
@@ -37,7 +38,7 @@ export default class Menu extends Component {
   signOut() {
 
   }
-  
+
   render() {
     const {
       container, containerProfile, profileStyle,
