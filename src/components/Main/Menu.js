@@ -22,7 +22,7 @@ export default class Menu extends Component {
   toAuthentication() {
     console.log('to authentication');
     this.props.navigation.navigate('DrawerClose');
-    this.props.navigation.navigate('Authentication', { navigation: this.props.navigation });
+    this.props.navigation.navigate('Authentication');
   }
 
   toChangeInfo() {

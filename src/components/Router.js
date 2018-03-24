@@ -9,10 +9,23 @@ import Search from './Main/Shop/Search/Search';
 import Authentication from './Authentication/Authentication';
 import ChangeInfo from './ChangeInfo/ChangeInfo';
 import OrderHistory from './OrderHistory/OrderHistory';
+import DetailProduct from './Main/Shop/DetailProduct/DetailProduct';
+import ListProduct from './Main/Shop/ListProduct/ListProduct';
+
+
+export const HomeStack = StackNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      tabBarLabel: 'Home',
+      header: false,
+    }
+  }
+});
 
 export const Tabbar = TabNavigator({
   Home: {
-    screen: Home,
+    screen: HomeStack,
     navigationOptions: {
       tabBarLabel: 'Home',
       header: false,
@@ -58,6 +71,39 @@ export const SlideMenu = DrawerNavigator({
     navigationOptions: {
       header: false
     }
+  },
+  DetailProduct: {
+    screen: DetailProduct,
+    navigationOptions: {
+      tabBarLabel: 'Detail Product',
+      header: false,
+    }
+  },
+  ListProduct: {
+    screen: ListProduct,
+    navigationOptions: {
+      tabBarLabel: 'List Product',
+      header: false,
+    }
+  },
+  Authentication: {
+    screen: Authentication,
+    navigationOptions: {
+      header: false
+    }
+  },
+  ChangeInfo: {
+    screen: ChangeInfo,
+    navigationOptions: {
+      header: false
+    }
+
+  },
+  OrderHistory: {
+    screen: OrderHistory,
+    navigationOptions: {
+      header: false
+    }
   }
 },
   {
@@ -74,25 +120,5 @@ export const MainStack = StackNavigator({
     navigationOptions: {
       header: false
     }
-  },
-  ChangeInfo: {
-    screen: ChangeInfo,
-    navigationOptions: {
-      header: false
-    }
-
-  },
-  Authentication: {
-    screen: Authentication,
-    navigationOptions: {
-      header: false
-    }
-  },
-  OrderHistory: {
-    screen: OrderHistory,
-    navigationOptions: {
-      header: false
-    }
   }
-
 });

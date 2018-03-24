@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 
 import imgCategory1 from '../../../../media/temp/maxi.jpg';
@@ -8,6 +8,10 @@ import imgCategory3 from '../../../../media/temp/mini.jpg';
 
 const { width, height } = Dimensions.get('window');
 export default class Category extends Component {
+  goToListProduct() {
+    console.log('Go to detail');
+    this.props.navigator.navigate('ListProduct');
+  }
   render() {
     const { wrrapper, viewTitle, viewImage, tvTitle, imageBanner, swiper } = styles;
     return (
@@ -17,9 +21,11 @@ export default class Category extends Component {
         </View>
         <View style={viewImage}>
           <Swiper style={swiper} showsButtons>
-            <Image source={imgCategory1} style={imageBanner} />
-            <Image source={imgCategory2} style={imageBanner} />  
-            <Image source={imgCategory3} style={imageBanner} />  
+            <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
+              <Image source={imgCategory1} style={imageBanner} />
+            </TouchableOpacity>
+            <Image source={imgCategory2} style={imageBanner} />
+            <Image source={imgCategory3} style={imageBanner} />
           </Swiper>
         </View>
       </View>

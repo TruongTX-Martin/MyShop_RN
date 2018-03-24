@@ -17,8 +17,8 @@ export default class Home extends Component {
         <Headers navigator={this.props.navigation} />
         <ScrollView>
           <Collection />
-          <Category />
-          <TopProduct />
+          <Category navigator={this.props.navigation} />
+          <TopProduct navigator={this.props.navigation} />
         </ScrollView>
 
       </View>
