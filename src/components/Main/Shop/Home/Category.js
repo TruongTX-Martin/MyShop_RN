@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
+import {
+  View, Text, StyleSheet, Dimensions, TouchableOpacity, ImageBackground
+} from 'react-native';
 import Swiper from 'react-native-swiper';
 
-import imgCategory1 from '../../../../media/temp/maxi.jpg';
-import imgCategory2 from '../../../../media/temp/midi.jpg';
-import imgCategory3 from '../../../../media/temp/mini.jpg';
 
 const { width, height } = Dimensions.get('window');
+const urlImageType = 'http://192.168.90.18/api/images/type/';
 export default class Category extends Component {
   goToListProduct() {
     console.log('Go to detail');
     this.props.navigator.navigate('ListProduct');
   }
   render() {
-    const { wrrapper, viewTitle, viewImage, tvTitle, imageBanner, swiper } = styles;
+    const { wrrapper, viewTitle, viewImage, tvTitle, imageBanner, swiper, txtNameProduct } = styles;
+    console.log("category:" + this.props.arrayType);
     return (
       <View style={wrrapper}>
         <View style={viewTitle}>
@@ -21,15 +22,15 @@ export default class Category extends Component {
         </View>
         <View style={viewImage}>
           <Swiper style={swiper} showsButtons>
-            <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
-              <Image source={imgCategory1} style={imageBanner} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
-              <Image source={imgCategory2} style={imageBanner} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
-              <Image source={imgCategory3} style={imageBanner} />
-            </TouchableOpacity>
+            {
+              this.props.arrayType.map(e => (
+                <TouchableOpacity key={e.id} onPress={this.goToListProduct.bind(this)}>
+                  <ImageBackground source={{ uri: urlImageType + e.image }} style={imageBanner}>
+                    <Text style={txtNameProduct}>{e.name}</Text>
+                  </ImageBackground>
+                </TouchableOpacity>
+              ))
+            }
           </Swiper>
         </View>
       </View>
@@ -63,7 +64,13 @@ const styles = StyleSheet.create({
   },
   imageBanner: {
     width: bannerWidth,
-    height: bannerHeight
+    height: bannerHeight,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  txtNameProduct: {
+    fontSize: 20,
+    color: '#C0C0C0'
   },
   swiper: {
 
