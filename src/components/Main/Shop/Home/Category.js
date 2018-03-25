@@ -14,7 +14,6 @@ export default class Category extends Component {
   }
   render() {
     const { wrrapper, viewTitle, viewImage, tvTitle, imageBanner, swiper, txtNameProduct } = styles;
-    console.log("category:" + this.props.arrayType);
     return (
       <View style={wrrapper}>
         <View style={viewTitle}>
@@ -25,7 +24,7 @@ export default class Category extends Component {
             {
               this.props.arrayType.map(e => (
                 <TouchableOpacity key={e.id} onPress={this.goToListProduct.bind(this)}>
-                  <ImageBackground source={{ uri: urlImageType + e.image }} style={imageBanner}>
+                  <ImageBackground source={{ uri: `${urlImageType}${e.image}` }} style={imageBanner}>
                     <Text style={txtNameProduct}>{e.name}</Text>
                   </ImageBackground>
                 </TouchableOpacity>

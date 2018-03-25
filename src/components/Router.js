@@ -11,6 +11,7 @@ import ChangeInfo from './ChangeInfo/ChangeInfo';
 import OrderHistory from './OrderHistory/OrderHistory';
 import DetailProduct from './Main/Shop/DetailProduct/DetailProduct';
 import ListProduct from './Main/Shop/ListProduct/ListProduct';
+import TopProduct from './Main/Shop/Home/TopProduct';
 
 export const HomeStack = StackNavigator({
   Home: {
@@ -33,7 +34,7 @@ export const HomeStack = StackNavigator({
       tabBarLabel: 'List Product',
       header: false,
     }
-  },
+  }
 });
 
 export const Tabbar = TabNavigator({
@@ -102,6 +103,13 @@ export const SlideMenu = DrawerNavigator({
     screen: OrderHistory,
     navigationOptions: {
       header: false
+    }
+  },
+  TopProduct: {
+    screen: TopProduct,
+    navigationOptions: {
+      tabBarLabel: 'TopProduct',
+      header: false,
     }
   }
 },

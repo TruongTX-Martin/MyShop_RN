@@ -5,19 +5,14 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 
-import sp1 from '../../../../media/temp/sp1.jpeg';
-import sp2 from '../../../../media/temp/sp2.jpeg';
-import sp3 from '../../../../media/temp/sp3.jpeg';
-import sp4 from '../../../../media/temp/sp4.jpeg';
-
+const urlImageProduct = 'http://192.168.90.18/api/images/product/';
 export default class TopProduct extends Component {
 
-
-  goToDetailProduct() {
-    console.log('Go to detail');
+  goToDetailProduct(productDetail) {
+    console.log("Detail product:" + productDetail.price);
     this.props.navigator.navigate('DetailProduct');
   }
   render() {
@@ -32,27 +27,15 @@ export default class TopProduct extends Component {
           <Text style={title}>Top Product</Text>
         </View>
         <View style={body}>
-          <TouchableOpacity style={productContainer} onPress={this.goToDetailProduct.bind(this)} v>
-            <Image source={sp1} style={productImage} />
-            <Text style={productName}>Product Name</Text>
-            <Text style={productPrice}>400$</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={productContainer} onPress={this.goToDetailProduct.bind(this)}>
-            <Image source={sp2} style={productImage} />
-            <Text style={productName}>Product Name</Text>
-            <Text style={productPrice}>300$</Text>
-          </TouchableOpacity>
-          <View style={{ height: 10, width }} />
-          <TouchableOpacity style={productContainer} onPress={this.goToDetailProduct.bind(this)}>
-            <Image source={sp3} style={productImage} />
-            <Text style={productName}>Product Name</Text>
-            <Text style={productPrice}>400$</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={productContainer} onPress={this.goToDetailProduct.bind(this)}>
-            <Image source={sp4} style={productImage} />
-            <Text style={productName}>Product Name</Text>
-            <Text style={productPrice}>300$</Text>
-          </TouchableOpacity>
+          {
+            this.props.arrayProduct.map(e => (
+              <TouchableOpacity key={e.id} style={productContainer} onPress={this.goToDetailProduct.bind(this, e)} v>
+                <Image source={{ uri: `${urlImageProduct}${e.images[0]}` }} style={productImage} />
+                <Text style={productName}>{e.nameType.toUpperCase()}</Text>
+                <Text style={productPrice}>{`${e.price}${'$'}`}</Text>
+              </TouchableOpacity>
+            ))
+          }
         </View>
       </View>
     );

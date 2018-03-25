@@ -11,7 +11,7 @@ export default class Home extends Component {
     super(props);
     this.state = {
       arrayType: [],
-      text: 'Truong'
+      arrayProduct: []
     };
   }
 
@@ -20,7 +20,8 @@ export default class Home extends Component {
     .then(res => res.json())
     .then(resJson => {
       this.setState({
-        arrayType: resJson.type
+        arrayType: resJson.type,
+        arrayProduct: resJson.product
       });
     });
   }
@@ -35,7 +36,7 @@ export default class Home extends Component {
         <ScrollView>
           <Collection />
           <Category navigator={this.props.navigation} arrayType={this.state.arrayType} />
-          <TopProduct navigator={this.props.navigation} />
+          <TopProduct navigator={this.props.navigation} arrayProduct={this.state.arrayProduct} />
         </ScrollView>
 
       </View>
