@@ -24,8 +24,12 @@ export default class Category extends Component {
             <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
               <Image source={imgCategory1} style={imageBanner} />
             </TouchableOpacity>
-            <Image source={imgCategory2} style={imageBanner} />
-            <Image source={imgCategory3} style={imageBanner} />
+            <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
+              <Image source={imgCategory2} style={imageBanner} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
+              <Image source={imgCategory3} style={imageBanner} />
+            </TouchableOpacity>
           </Swiper>
         </View>
       </View>

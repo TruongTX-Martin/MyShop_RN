@@ -12,7 +12,6 @@ import OrderHistory from './OrderHistory/OrderHistory';
 import DetailProduct from './Main/Shop/DetailProduct/DetailProduct';
 import ListProduct from './Main/Shop/ListProduct/ListProduct';
 
-
 export const HomeStack = StackNavigator({
   Home: {
     screen: Home,
@@ -20,7 +19,21 @@ export const HomeStack = StackNavigator({
       tabBarLabel: 'Home',
       header: false,
     }
-  }
+  },
+  DetailProduct: {
+    screen: DetailProduct,
+    navigationOptions: {
+      tabBarLabel: 'Detail Product',
+      header: false,
+    }
+  },
+  ListProduct: {
+    screen: ListProduct,
+    navigationOptions: {
+      tabBarLabel: 'List Product',
+      header: false,
+    }
+  },
 });
 
 export const Tabbar = TabNavigator({
@@ -70,20 +83,6 @@ export const SlideMenu = DrawerNavigator({
     screen: Tabbar,
     navigationOptions: {
       header: false
-    }
-  },
-  DetailProduct: {
-    screen: DetailProduct,
-    navigationOptions: {
-      tabBarLabel: 'Detail Product',
-      header: false,
-    }
-  },
-  ListProduct: {
-    screen: ListProduct,
-    navigationOptions: {
-      tabBarLabel: 'List Product',
-      header: false,
     }
   },
   Authentication: {
