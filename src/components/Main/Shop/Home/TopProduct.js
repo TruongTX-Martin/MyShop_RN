@@ -7,13 +7,12 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import Config from '../../../../components/Config';
 
-const urlImageProduct = 'http://192.168.90.18/api/images/product/';
 export default class TopProduct extends Component {
 
   goToDetailProduct(productDetail) {
-    console.log("Detail product:" + productDetail.price);
-    this.props.navigator.navigate('DetailProduct');
+    this.props.navigator.navigate('DetailProduct', { product: productDetail });
   }
   render() {
     const {
@@ -30,7 +29,7 @@ export default class TopProduct extends Component {
           {
             this.props.arrayProduct.map(e => (
               <TouchableOpacity key={e.id} style={productContainer} onPress={this.goToDetailProduct.bind(this, e)} v>
-                <Image source={{ uri: `${urlImageProduct}${e.images[0]}` }} style={productImage} />
+                <Image source={{ uri: `${Config.urlImageProduct}${e.images[0]}` }} style={productImage} />
                 <Text style={productName}>{e.nameType.toUpperCase()}</Text>
                 <Text style={productPrice}>{`${e.price}${'$'}`}</Text>
               </TouchableOpacity>

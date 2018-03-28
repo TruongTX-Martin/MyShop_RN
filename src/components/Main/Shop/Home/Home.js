@@ -4,6 +4,7 @@ import Headers from '../Header';
 import Collection from './Collections';
 import Category from './Category';
 import TopProduct from './TopProduct';
+import Config from '../../../../components/Config';
 
 export default class Home extends Component {
 
@@ -16,7 +17,7 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    fetch('http://192.168.90.18/api/')//eslint-disable-line
+    fetch(`${Config.url}${'api/'}`)//eslint-disable-line
     .then(res => res.json())
     .then(resJson => {
       this.setState({

@@ -3,9 +3,7 @@ import {
   View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity
 } from 'react-native';
 import Headers from '../Header';
-
-import img1 from '../../../../media/temp/sp5.jpeg';
-import img2 from '../../../../media/temp/sp4.jpeg';
+import Config from '../../../Config';
 
 const back = require('../../../../media/appIcon/back.png');
 const cart = require('../../../../media/appIcon/cartfull.png');
@@ -22,6 +20,7 @@ export default class DetailProduct extends Component {
       textSmoke, textHighlight, textMain, titleContainer,
       descContainer, productImageStyle, descStyle, txtMaterial, txtColor
     } = styles;
+    const { product } = this.props.navigation.state.params;
     return (
       <View style={wrapper}>
         <Headers navigator={this.props.navigation} />
@@ -36,25 +35,25 @@ export default class DetailProduct extends Component {
           </View>
           <View style={imageContainer}>
             <ScrollView style={{ flexDirection: 'row', padding: 10, height: swiperHeight }} horizontal >
-              <Image source={img1} style={productImageStyle} />
-              <Image source={img2} style={productImageStyle} />
+              <Image source={{ uri: `${Config.urlImageProduct}${product.images[0]}` }} style={productImageStyle} />
+              <Image source={{ uri: `${Config.urlImageProduct}${product.images[1]}` }} style={productImageStyle} />
             </ScrollView>
           </View>
           <View style={footer}>
             <View style={titleContainer}>
               <Text style={textMain}>
-                <Text style={textBlack}>{'back of the'.toUpperCase()}</Text>
+                <Text style={textBlack}>{product.name.toUpperCase()}</Text>
                 <Text style={textHighlight}> / </Text>
-                <Text style={textSmoke}>100$</Text>
+                <Text style={textSmoke}>{`${product.price}${'$'}`}</Text>
               </Text>
             </View>
             <View style={descContainer}>
-              <Text style={descStyle}>A delicate layer of eyelash lace brings dreamy elegance to this piece, while smooth, lightweight lining feels luxurious against your skin. We love it with heels for a look that fits in on date night, or with cool booties to add an edge.</Text>
+              <Text style={descStyle}>{product.description}}</Text>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 15 }}>
-                <Text style={txtMaterial}>Material Fur</Text>
+                <Text style={txtMaterial}>{product.material.toUpperCase()}</Text>
                 <View style={{ flexDirection: 'row' }} >
-                  <Text style={txtColor}>Color Black</Text>
-                  <View style={{ height: 15, width: 15, backgroundColor: 'black'.toLowerCase(), borderRadius: 15, marginLeft: 10, borderWidth: 1, borderColor: '#C21C70' }} />
+                  <Text style={txtColor}>{product.color}</Text>
+                  <View style={{ height: 15, width: 15, backgroundColor: 'green', borderRadius: 15, marginLeft: 10, borderWidth: 1, borderColor: '#C21C70' }} />
                 </View>
               </View>
             </View>

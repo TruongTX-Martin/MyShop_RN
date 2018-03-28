@@ -34,6 +34,13 @@ export const HomeStack = StackNavigator({
       tabBarLabel: 'List Product',
       header: false,
     }
+  },
+  TopProduct: {
+    screen: TopProduct,
+    navigationOptions: {
+      tabBarLabel: 'TopProduct',
+      header: false,
+    }
   }
 });
 
@@ -103,13 +110,6 @@ export const SlideMenu = DrawerNavigator({
     screen: OrderHistory,
     navigationOptions: {
       header: false
-    }
-  },
-  TopProduct: {
-    screen: TopProduct,
-    navigationOptions: {
-      tabBarLabel: 'TopProduct',
-      header: false,
     }
   }
 },
