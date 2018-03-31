@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import Headers from '../Header';
 import Config from '../../../Config';
+import Global from '../../../../components/Global';
 
 const back = require('../../../../media/appIcon/back.png');
 const cart = require('../../../../media/appIcon/cartfull.png');
@@ -12,6 +13,12 @@ export default class DetailProduct extends Component {
   goBack() {
     this.props.navigation.pop();
   }
+
+  addProductToCart() {
+    const { product } = this.props.navigation.state.params;
+    Global.addProductToCart(product);
+  }
+
   render() {
     const {
       wrapper, cardStyle, header,
@@ -29,14 +36,27 @@ export default class DetailProduct extends Component {
             <TouchableOpacity onPress={this.goBack.bind(this)}>
               <Image style={backStyle} source={back} />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.addProductToCart.bind(this)}>
               <Image style={cartStyle} source={cart} />
             </TouchableOpacity>
           </View>
           <View style={imageContainer}>
-            <ScrollView style={{ flexDirection: 'row', padding: 10, height: swiperHeight }} horizontal >
-              <Image source={{ uri: `${Config.urlImageProduct}${product.images[0]}` }} style={productImageStyle} />
-              <Image source={{ uri: `${Config.urlImageProduct}${product.images[1]}` }} style={productImageStyle} />
+            <ScrollView
+              style={{
+                flexDirection: 'row',
+                padding: 10,
+                height: swiperHeight
+              }}
+              horizontal
+            >
+              <Image
+                source={{ uri: `${Config.urlImageProduct}${product.images[0]}` }}
+                style={productImageStyle}
+              />
+              <Image
+                source={{ uri: `${Config.urlImageProduct}${product.images[1]}` }}
+                style={productImageStyle}
+              />
             </ScrollView>
           </View>
           <View style={footer}>
@@ -49,11 +69,27 @@ export default class DetailProduct extends Component {
             </View>
             <View style={descContainer}>
               <Text style={descStyle}>{product.description}}</Text>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 15 }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingTop: 15
+                }}
+              >
                 <Text style={txtMaterial}>{product.material.toUpperCase()}</Text>
                 <View style={{ flexDirection: 'row' }} >
                   <Text style={txtColor}>{product.color}</Text>
-                  <View style={{ height: 15, width: 15, backgroundColor: 'green', borderRadius: 15, marginLeft: 10, borderWidth: 1, borderColor: '#C21C70' }} />
+                  <View
+                    style={{
+                      height: 15,
+                      width: 15,
+                      backgroundColor: 'green',
+                      borderRadius: 15,
+                      marginLeft: 10,
+                      borderWidth: 1,
+                      borderColor: '#C21C70'
+                    }}
+                  />
                 </View>
               </View>
             </View>
