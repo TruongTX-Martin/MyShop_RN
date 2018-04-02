@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 import icBack from '../../media/appIcon/back_white.png';
 import icLogo from '../../media/appIcon/ic_logo.png';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 export default class Authentication extends Component {
 
@@ -34,55 +36,10 @@ export default class Authentication extends Component {
       container, viewTop, viewCenter, viewBottom,
       icBackStyle, titleStyle, icLogoStyle,
       viewSignInStyle, viewSignUpStyle, textButtonActiveStyle, textButtonInActiveStyle,
-      btnSignInStyle, btnSignUpStyle, inputStyle, viewCenterSignIn,
-      bigButtonStyle, textBigButtonStyle
+      btnSignInStyle, btnSignUpStyle,
     } = styles;
-    const signInJSX = (
-      <View style={viewCenterSignIn}>
-        <TextInput
-          underlineColorAndroid='transparent'
-          style={inputStyle}
-          placeholder='Enter your email'
-        />
-        <TextInput
-          underlineColorAndroid='transparent'
-          style={inputStyle}
-          placeholder='Enter your password'
-        />
-        <TouchableOpacity style={bigButtonStyle}>
-          <Text style={textBigButtonStyle}>SIGN IN NOW</Text>
-        </TouchableOpacity>
-      </View>
-    );
-    const signUpJSX = (
-      <View style={viewCenterSignIn}>
-        <TextInput
-          underlineColorAndroid='transparent'
-          style={inputStyle}
-          placeholder='Enter your email'
-        />
-        <TextInput
-          underlineColorAndroid='transparent'
-          style={inputStyle}
-          placeholder='Enter your email'
-        />
-        <TextInput
-          underlineColorAndroid='transparent'
-          style={inputStyle}
-          placeholder='Enter your password'
-        />
-        <TextInput
-          underlineColorAndroid='transparent'
-          style={inputStyle}
-          placeholder='Re-enter your password'
-        />
-        <TouchableOpacity style={bigButtonStyle}>
-          <Text style={textBigButtonStyle}>SIGN UP NOW</Text>
-        </TouchableOpacity>
-      </View>
-    );
     const isSignIn = this.state.isSignIn;
-    const renderViewCenter = isSignIn ? signInJSX : signUpJSX;
+    const renderViewCenter = isSignIn ? <SignIn /> : <SignUp />;
     return (
       <View style={container}>
         <View style={viewTop}>
@@ -119,7 +76,6 @@ export default class Authentication extends Component {
 const paddingTextButton = 15;
 const borderRadiusButton = 20;
 const marginButtonWithScreen = 40;
-const marginHorizontalInput = 30;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -145,19 +101,6 @@ const styles = StyleSheet.create({
   },
   viewCenter: {
     flex: 1
-  },
-  viewCenterSignIn: {
-    flex: 1,
-    marginTop: 50
-  },
-  inputStyle: {
-    height: 50,
-    backgroundColor: '#fff',
-    borderRadius: borderRadiusButton,
-    marginHorizontal: marginHorizontalInput,
-    fontSize: 20,
-    paddingLeft: 20,
-    marginBottom: 15
   },
   viewBottom: {
     flexDirection: 'row',
@@ -192,18 +135,5 @@ const styles = StyleSheet.create({
     paddingTop: paddingTextButton,
     paddingBottom: paddingTextButton,
     color: '#E5E5E5'
-  },
-  bigButtonStyle: {
-    marginHorizontal: marginHorizontalInput,
-    borderColor: '#fff',
-    borderWidth: 1,
-    borderRadius: borderRadiusButton,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  textBigButtonStyle: {
-    color: '#fff',
-    fontSize: 20
   }
 });
