@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import {
-  View, Text, TouchableOpacity, ScrollView,
-  Dimensions, StyleSheet, Image, ListView
+  View, Text, TouchableOpacity,
+  Dimensions, StyleSheet, Image, ListView, AsyncStorage
 } from 'react-native';
 import Global from '../../../../components/Global';
 
-import sp1 from '../../.././../media/temp/sp1.jpeg';
 import Headers from '../Header';
 import Config from '../../../../components/Config';
+import saveCart from '../../../../api/saveCart';
+import getCart from '../../../../api/getCart';
 
 function toTitleCase(str) {
   return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -20,7 +21,19 @@ export default class Card extends Component {
     this.state = {
       cartArray: []
     };
+    console.log('constructor');
     Global.addProductToCart = this.addProductToCart.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('component didmount');
+    getCart()
+      .then(cartArray => {
+        console.log('didmount array:' + cartArray);
+        this.setState({
+          cartArray
+        });
+      });
   }
 
   gotoDetail() {
@@ -32,14 +45,15 @@ export default class Card extends Component {
     // push return number, concat return array
     this.setState({
       cartArray: this.state.cartArray.concat({ product, quantity: 1 })
-    });
+    }, () => saveCart(this.state.cartArray)
+    );
   }
+
   render() {
     const { main, checkoutButton, checkoutTitle, wrapper,
       productViewStyle, mainRight, productController,
       txtName, txtPrice, productImage, numberOfProduct,
       txtShowDetail, showDetailContainer } = styles;
-    console.log("Cart Array:" + this.state.cartArray);
     return (
       <View style={wrapper}>
         <Headers navigator={this.props.navigation} />

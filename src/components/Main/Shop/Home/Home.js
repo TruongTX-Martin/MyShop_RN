@@ -4,6 +4,7 @@ import Headers from '../Header';
 import Collection from './Collections';
 import Category from './Category';
 import TopProduct from './TopProduct';
+import initData from '../../../../api/initData';
 import Config from '../../../../components/Config';
 
 export default class Home extends Component {
@@ -17,14 +18,13 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    fetch(`${Config.url}${'api/'}`)//eslint-disable-line
-    .then(res => res.json())
-    .then(resJson => {
-      this.setState({
-        arrayType: resJson.type,
-        arrayProduct: resJson.product
+    initData()
+      .then(resJson => {
+        this.setState({
+          arrayType: resJson.type,
+          arrayProduct: resJson.product
+        });
       });
-    });
   }
   openSlideMenu() {
     this.props.navigation.navigate('DrawerOpen');
