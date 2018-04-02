@@ -1,23 +1,52 @@
 import React, { Component } from 'react';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
 import register from '../../api/register';
 
 export default class SignUp extends Component {
 
   constructor(props) {
-      super(props);
-      this.state = {
-        email: '',
-        name: '',
-        password: '',
-        rePassword: ''
-      };
+    super(props);
+    this.state = {
+      email: '',
+      name: '',
+      password: '',
+      rePassword: ''
+    };
   }
+  onRegisterSuccess() {
+    Alert.alert(
+      'Notice',
+      'Register successfully',
+      [
+        { text: 'OK', 
+        onPress: () => this.setState({ name: '', email: '', password: '', rePassword: '' }) },
+      ],
+      { cancelable: false }
+    );
+  }
+
+  onRegisterFailed() {
+    Alert.alert(
+      'Notice',
+      'Register failed',
+      [
+        { text: 'OK', onPress: () => (console.log('OK Pressed')) },
+      ],
+      { cancelable: false }
+    );
+  }
+
   registerUser() {
     const { email, name, password } = this.state;
     register(email, name, password)
-    .then(res => console.log("register:"+res));
+      .then(res => {
+        if (res === 'THANH_CONG') {
+          this.onRegisterSuccess();
+        } else {
+          this.onRegisterFailed();
+        }
+      });
   }
 
   render() {
