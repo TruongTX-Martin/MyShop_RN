@@ -17,12 +17,6 @@ export default class TopProduct extends Component {
     this.props.navigator.navigate('DetailProduct', { product: productDetail });
   }
 
-  renderItem = ({ item }) => (
-    <View>
-      <Text>Tran Xuan Truong</Text>
-    </View>
-  );
-
   render() {
     const {
       container, titleContainer, title,
@@ -106,20 +100,3 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   }
 });
-
-/* {
-            this.props.arrayProduct.map(e => (
-              <TouchableOpacity
-                key={e.id}
-                style={productContainer}
-                onPress={this.goToDetailProduct.bind(this, e)}
-              >
-                <Image
-                  source={{ uri: `${Config.urlImageProduct}${e.images[0]}` }}
-                  style={productImage}
-                />
-                <Text style={productName}>{e.nameType.toUpperCase()}</Text>
-                <Text style={productPrice}>{`${e.price}${'$'}`}</Text>
-              </TouchableOpacity>
-            ))
-          } */

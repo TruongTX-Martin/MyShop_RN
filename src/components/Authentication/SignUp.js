@@ -19,8 +19,10 @@ export default class SignUp extends Component {
       'Notice',
       'Register successfully',
       [
-        { text: 'OK', 
-        onPress: () => this.setState({ name: '', email: '', password: '', rePassword: '' }) },
+        {
+          text: 'OK',
+          onPress: () => this.props.gotoSignIn()
+        },
       ],
       { cancelable: false }
     );

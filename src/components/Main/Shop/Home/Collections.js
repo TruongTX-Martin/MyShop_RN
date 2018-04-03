@@ -13,7 +13,7 @@ export default class Collection extends Component {
           <Text style={tvTitle}>SPRING COLLECTION</Text>
         </View>
         <View style={viewImage}>
-          <Image source={imgBanner} style={imageBanner}/>
+          <Image source={imgBanner} style={imageBanner} />
         </View>
       </View>
     );

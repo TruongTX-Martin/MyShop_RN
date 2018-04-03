@@ -1,8 +1,45 @@
 import React, { Component } from 'react';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import Toast from 'react-native-simple-toast';
+import signIn from '../../api/signIn';
+import Global from '../Global';
 
 export default class SignIn extends Component {
-  state = {}
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: ''
+    };
+  }
+
+  onSignInError() {
+    Alert.alert(
+      'Notice',
+      'Email or Password is incorrect',
+      [
+        { text: 'OK', onPress: () => (console.log('OK Pressed')) },
+      ],
+      { cancelable: false }
+    );
+  }
+
+  onSignInSuccess(user) {
+    Toast.show('Login success');
+    Global.onLoginSuccess(user);
+    this.props.navigation.pop();
+  }
+
+  signIn() {
+    const { email, password } = this.state;
+    signIn(email, password)
+      .then(res => {
+        this.onSignInSuccess(res.user);
+      })
+      .catch(error => this.onSignInError(error));
+  }
+
   render() {
     const { viewCenterSignIn, inputStyle, bigButtonStyle, textBigButtonStyle } = styles;
     return (
@@ -11,13 +48,18 @@ export default class SignIn extends Component {
           underlineColorAndroid='transparent'
           style={inputStyle}
           placeholder='Enter your email'
+          value={this.state.email}
+          onChangeText={email => this.setState({ email })}
         />
         <TextInput
+          secureTextEntry
           underlineColorAndroid='transparent'
           style={inputStyle}
           placeholder='Enter your password'
+          value={this.state.password}
+          onChangeText={password => this.setState({ password })}
         />
-        <TouchableOpacity style={bigButtonStyle}>
+        <TouchableOpacity style={bigButtonStyle} onPress={this.signIn.bind(this)}>
           <Text style={textBigButtonStyle}>SIGN IN NOW</Text>
         </TouchableOpacity>
       </View>
@@ -49,7 +91,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center'
-  }, 
+  },
   textBigButtonStyle: {
     color: '#fff',
     fontSize: 20

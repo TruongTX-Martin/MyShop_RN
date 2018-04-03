@@ -5,7 +5,6 @@ import Collection from './Collections';
 import Category from './Category';
 import TopProduct from './TopProduct';
 import initData from '../../../../api/initData';
-import Config from '../../../../components/Config';
 
 export default class Home extends Component {
 

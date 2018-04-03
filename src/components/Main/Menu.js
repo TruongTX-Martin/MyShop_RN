@@ -6,6 +6,10 @@ import {
   StyleSheet,
   Image
 } from 'react-native';
+import Toast from 'react-native-simple-toast';
+import Global from '../../components/Global';
+import getUser from '../../api/getUser';
+import saveUser from '../../api/saveUser';
 
 import imgProfile from '../../media/temp/profile.png';
 
@@ -15,18 +19,38 @@ export default class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogIn: false
+      isLogIn: false,
+      user: null
     };
+    Global.onLoginSuccess = this.onLoginSuccess.bind(this);
+  }
+
+  componentDidMount() {
+    getUser()
+      .then(user => {
+        if (user) {
+          this.setState({
+            isLogIn: true,
+            user
+          });
+        }
+      });
+  }
+
+  onLoginSuccess(user) {
+    this.setState({
+      isLogIn: true,
+      user
+    });
+    saveUser(user);
   }
 
   toAuthentication() {
-    console.log('to authentication');
     this.props.navigation.navigate('DrawerClose');
     this.props.navigation.navigate('Authentication');
   }
 
   toChangeInfo() {
-    console.log('to change info');
     this.props.navigation.navigate('ChangeInfo');
   }
 
@@ -36,7 +60,13 @@ export default class Menu extends Component {
   }
 
   signOut() {
-
+    this.props.navigation.navigate('DrawerClose');
+    saveUser(null);
+    this.setState({
+      isLogIn: false,
+      user: null
+    });
+    Toast.show('Logout success');
   }
 
   render() {
@@ -46,6 +76,7 @@ export default class Menu extends Component {
       viewCenter, viewBottom
     } = styles;
 
+    const { user } = this.state;
     const logoutJSX = (
       <View>
         <TouchableOpacity style={btnSignIn} onPress={this.toAuthentication.bind(this)}>
@@ -56,7 +87,7 @@ export default class Menu extends Component {
     const loginJSX = (
       <View style={{ flex: 1 }}>
         <View style={viewUserName}>
-          <Text style={textUserName}>Tran Xuan Truong</Text>
+          <Text style={textUserName}>{user ? user.name : ''}</Text>
         </View>
         <View style={viewCenter}>
           <TouchableOpacity style={btnSignIn} onPress={this.ToOrderHistory.bind(this)}>

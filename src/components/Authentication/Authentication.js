@@ -39,7 +39,7 @@ export default class Authentication extends Component {
       btnSignInStyle, btnSignUpStyle,
     } = styles;
     const isSignIn = this.state.isSignIn;
-    const renderViewCenter = isSignIn ? <SignIn /> : <SignUp />;
+    const renderViewCenter = isSignIn ? <SignIn navigation={this.props.navigation} /> : <SignUp gotoSignIn={this.onChooseSignIn.bind(this)} />;
     return (
       <View style={container}>
         <View style={viewTop}>
