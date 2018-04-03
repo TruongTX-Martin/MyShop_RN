@@ -1,21 +1,55 @@
 import React, { Component } from 'react';
 import {
-  View, TouchableOpacity, Text, Image, StyleSheet, TextInput
+  View, TouchableOpacity, Text, Image, StyleSheet
 } from 'react-native';
+import { Form, TextInput } from 'react-native-autofocus';
+import Toast from 'react-native-simple-toast';
+import getUser from '../../api/getUser';
+import saveUser from '../../api/saveUser';
 import backSpecial from '../../media/appIcon/back_white.png';
 
 export default class ChangeInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      txtName: 'Nguyen Van Pho',
-      txtAddress: '92 Le Thi Rieng / Ben Thanh',
-      txtPhone: '01694472176'
+      name: '',
+      address: '',
+      phone: '',
+      user: null
     };
+  }
+
+  componentDidMount() {
+    this.getUserLocal();
+  }
+
+  onChangeInfo() {
+    const { user, name, phone, address } = this.state;
+    user.address = address;
+    user.phone = phone;
+    user.name = name;
+    saveUser(user);
+    this.props.navigation.pop();
+    Toast.show('Save infor success');
+  }
+
+  getUserLocal() {
+    getUser()
+      .then(user => {
+        if (user) {
+          this.setState({
+            name: user.name,
+            address: user.address,
+            phone: user.phone,
+            user
+          });
+        }
+      });
   }
   goBackToMain() {
     this.props.navigation.pop();
   }
+
 
   render() {
     const {
@@ -33,28 +67,37 @@ export default class ChangeInfo extends Component {
           <View />
         </View>
         <View style={body}>
-          <TextInput
-            style={textInput}
-            placeholder="Enter your name"
-            autoCapitalize="none"
-            value={name}
-            onChangeText={txtName => this.setState({ ...this.state, txtName })}
-          />
-          <TextInput
-            style={textInput}
-            placeholder="Enter your address"
-            autoCapitalize="none"
-            value={address}
-            onChangeText={txtAddress => this.setState({ ...this.state, txtAddress })}
-          />
-          <TextInput
-            style={textInput}
-            placeholder="Enter your phone number"
-            autoCapitalize="none"
-            value={phone}
-            onChangeText={txtPhone => this.setState({ ...this.state, txtPhone })}
-          />
-          <TouchableOpacity style={signInContainer}>
+          <Form>
+            <TextInput
+              underlineColorAndroid='transparent'
+              returnKeyType='next'
+              style={textInput}
+              placeholder="Enter your name"
+              autoCapitalize="none"
+              value={name}
+              onChangeText={txtName => this.setState({ name: txtName })}
+            />
+            <TextInput
+              underlineColorAndroid='transparent'
+              returnKeyType='next'
+              style={textInput}
+              placeholder="Enter your address"
+              autoCapitalize="none"
+              value={address}
+              onChangeText={txtAddress => this.setState({ address: txtAddress })}
+            />
+            <TextInput
+              underlineColorAndroid='transparent'
+              returnKeyType='done'
+              keyboardType='numeric'
+              style={textInput}
+              placeholder="Enter your phone number"
+              autoCapitalize="none"
+              value={phone}
+              onChangeText={txtPhone => this.setState({ phone: txtPhone })}
+            />
+          </Form>
+          <TouchableOpacity style={signInContainer} onPress={this.onChangeInfo.bind(this)}>
             <Text style={signInTextStyle}>CHANGE YOUR INFOMATION</Text>
           </TouchableOpacity>
         </View>

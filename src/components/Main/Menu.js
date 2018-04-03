@@ -46,7 +46,6 @@ export default class Menu extends Component {
   }
 
   toAuthentication() {
-    this.props.navigation.navigate('DrawerClose');
     this.props.navigation.navigate('Authentication');
   }
 

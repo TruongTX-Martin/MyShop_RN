@@ -33,6 +33,14 @@ export default class SignIn extends Component {
 
   signIn() {
     const { email, password } = this.state;
+    if (!email) {
+      Toast.show('Please type your email');
+      return;
+    }
+    if (!password) {
+      Toast.show('Please type your password');
+      return;
+    }
     signIn(email, password)
       .then(res => {
         this.onSignInSuccess(res.user);
@@ -46,6 +54,7 @@ export default class SignIn extends Component {
       <View style={viewCenterSignIn}>
         <TextInput
           underlineColorAndroid='transparent'
+          returnKeyType='next'
           style={inputStyle}
           placeholder='Enter your email'
           value={this.state.email}
