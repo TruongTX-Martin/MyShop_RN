@@ -47,7 +47,7 @@ export default class Menu extends Component {
   }
 
   toChangeInfo() {
-    this.props.navigation.navigate('ChangeInfo');
+    this.props.navigation.navigate('ChangeInfo', { user: this.state.user });
   }
 
   ToOrderHistory() {

@@ -5,6 +5,9 @@ import {
 import { Form, TextInput } from 'react-native-autofocus';
 import Toast from 'react-native-simple-toast';
 import backSpecial from '../../media/appIcon/back_white.png';
+import changeInfo from '../../api/changeInfo';
+import getToken from '../../api/getToken';
+import Global from '../../components/Global';
 
 export default class ChangeInfo extends Component {
   constructor(props) {
@@ -18,35 +21,33 @@ export default class ChangeInfo extends Component {
   }
 
   componentDidMount() {
-    this.getUserLocal();
+    const user = this.props.navigation.state.params.user;
+    console.log('To Change Info' + JSON.stringify(user));
+    this.setState({
+      name: user.name,
+      address: user.address,
+      phone: user.phone,
+      user
+    });
   }
 
   onChangeInfo() {
-    const { user, name, phone, address } = this.state;
-    user.address = address;
-    user.phone = phone;
-    user.name = name;
-    this.props.navigation.pop();
-    Toast.show('Save infor success');
+    const { name, phone, address } = this.state;
+    getToken()
+      .then(token => {
+        changeInfo(token, name, phone, address)
+          .then(userUpdate => {
+            Global.onLoginSuccess(userUpdate);
+            this.props.navigation.pop();
+            Toast.show('Save infor success');
+          })
+          .catch(error => console.log('Change info error:' + error));
+      });
   }
 
-  getUserLocal() {
-    // getUser()
-    //   .then(user => {
-    //     if (user) {
-    //       this.setState({
-    //         name: user.name,
-    //         address: user.address,
-    //         phone: user.phone,
-    //         user
-    //       });
-    //     }
-    //   });
-  }
   goBackToMain() {
     this.props.navigation.pop();
   }
-
 
   render() {
     const {
@@ -66,7 +67,6 @@ export default class ChangeInfo extends Component {
         <View style={body}>
           <Form>
             <TextInput
-              editable={false}
               underlineColorAndroid='transparent'
               returnKeyType='next'
               style={textInput}
