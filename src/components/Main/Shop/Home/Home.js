@@ -37,12 +37,13 @@ export default class Home extends Component {
             saveToken(res.token);
             Global.onLoginSuccess(res.user);
           })
-          .catch(error => { 
+          .catch(error => {
             saveToken('');
-            console.log('Check Login Failed:' + error); 
+            console.log('Check Login Failed:' + error);
           });
       });
   }
+
   openSlideMenu() {
     this.props.navigation.navigate('DrawerOpen');
   }
