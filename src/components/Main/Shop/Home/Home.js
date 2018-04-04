@@ -5,6 +5,10 @@ import Collection from './Collections';
 import Category from './Category';
 import TopProduct from './TopProduct';
 import initData from '../../../../api/initData';
+import getToken from '../../../../api/getToken';
+import checkLogin from '../../../../api/checkLogin';
+import saveToken from '../../../../api/saveToken';
+import Global from '../../../Global';
 
 export default class Home extends Component {
 
@@ -17,12 +21,26 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
+    // get data for home
     initData()
       .then(resJson => {
         this.setState({
           arrayType: resJson.type,
           arrayProduct: resJson.product
         });
+      });
+    //check login every start app
+    getToken()
+      .then(token => {
+        checkLogin(token)
+          .then(res => {
+            saveToken(res.token);
+            Global.onLoginSuccess(res.user);
+          })
+          .catch(error => { 
+            saveToken('');
+            console.log('Check Login Failed:' + error); 
+          });
       });
   }
   openSlideMenu() {

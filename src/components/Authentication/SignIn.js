@@ -3,6 +3,7 @@ import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert } from 'reac
 import Toast from 'react-native-simple-toast';
 import signIn from '../../api/signIn';
 import Global from '../Global';
+import saveToken from '../../api/saveToken';
 
 export default class SignIn extends Component {
 
@@ -25,9 +26,10 @@ export default class SignIn extends Component {
     );
   }
 
-  onSignInSuccess(user) {
+  onSignInSuccess(res) {
     Toast.show('Login success');
-    Global.onLoginSuccess(user);
+    Global.onLoginSuccess(res.user);
+    saveToken(res.token);
     this.props.navigation.pop();
   }
 
@@ -44,7 +46,7 @@ export default class SignIn extends Component {
     signIn(email, password)
       .then(res => {
         console.log('Data return:' + JSON.stringify(res));
-        this.onSignInSuccess(res.user);
+        this.onSignInSuccess(res);
       })
       .catch(error => this.onSignInError(error));
   }

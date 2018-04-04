@@ -8,10 +8,8 @@ import {
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import Global from '../../components/Global';
-import getUser from '../../api/getUser';
-import saveUser from '../../api/saveUser';
-
 import imgProfile from '../../media/temp/profile.png';
+import saveToken from '../../api/saveToken';
 
 
 export default class Menu extends Component {
@@ -26,15 +24,15 @@ export default class Menu extends Component {
   }
 
   componentDidMount() {
-    getUser()
-      .then(user => {
-        if (user) {
-          this.setState({
-            isLogIn: true,
-            user
-          });
-        }
-      });
+    // getUser()
+    //   .then(user => {
+    //     if (user) {
+    //       this.setState({
+    //         isLogIn: true,
+    //         user
+    //       });
+    //     }
+    //   });
   }
 
   onLoginSuccess(user) {
@@ -42,7 +40,6 @@ export default class Menu extends Component {
       isLogIn: true,
       user
     });
-    saveUser(user);
   }
 
   toAuthentication() {
@@ -60,7 +57,7 @@ export default class Menu extends Component {
 
   signOut() {
     this.props.navigation.navigate('DrawerClose');
-    saveUser(null);
+    saveToken('');
     this.setState({
       isLogIn: false,
       user: null

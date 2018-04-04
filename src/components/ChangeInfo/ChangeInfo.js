@@ -4,8 +4,6 @@ import {
 } from 'react-native';
 import { Form, TextInput } from 'react-native-autofocus';
 import Toast from 'react-native-simple-toast';
-import getUser from '../../api/getUser';
-import saveUser from '../../api/saveUser';
 import backSpecial from '../../media/appIcon/back_white.png';
 
 export default class ChangeInfo extends Component {
@@ -28,23 +26,22 @@ export default class ChangeInfo extends Component {
     user.address = address;
     user.phone = phone;
     user.name = name;
-    saveUser(user);
     this.props.navigation.pop();
     Toast.show('Save infor success');
   }
 
   getUserLocal() {
-    getUser()
-      .then(user => {
-        if (user) {
-          this.setState({
-            name: user.name,
-            address: user.address,
-            phone: user.phone,
-            user
-          });
-        }
-      });
+    // getUser()
+    //   .then(user => {
+    //     if (user) {
+    //       this.setState({
+    //         name: user.name,
+    //         address: user.address,
+    //         phone: user.phone,
+    //         user
+    //       });
+    //     }
+    //   });
   }
   goBackToMain() {
     this.props.navigation.pop();
