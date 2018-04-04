@@ -43,6 +43,7 @@ export default class SignIn extends Component {
     }
     signIn(email, password)
       .then(res => {
+        console.log('Data return:' + JSON.stringify(res));
         this.onSignInSuccess(res.user);
       })
       .catch(error => this.onSignInError(error));

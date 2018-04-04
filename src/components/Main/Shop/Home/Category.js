@@ -13,24 +13,28 @@ export default class Category extends Component {
     this.props.navigator.navigate('ListProduct');
   }
   render() {
+    const { arrayType } = this.props;
     const { wrrapper, viewTitle, viewImage, tvTitle, imageBanner, swiper, txtNameProduct } = styles;
+    const swiperView = (
+      <Swiper style={swiper} showsButtons>
+        {
+          arrayType.map(e => (
+            <TouchableOpacity key={e.id} onPress={this.goToListProduct.bind(this)}>
+              <ImageBackground source={{ uri: `${urlImageType}${e.image}` }} style={imageBanner}>
+                <Text style={txtNameProduct}>{e.name}</Text>
+              </ImageBackground>
+            </TouchableOpacity>
+          ))
+        }
+      </Swiper>
+    );
     return (
       <View style={wrrapper}>
         <View style={viewTitle}>
           <Text style={tvTitle}>LIST OF CATEGORY</Text>
         </View>
         <View style={viewImage}>
-          <Swiper style={swiper} showsButtons>
-            {
-              this.props.arrayType.map(e => (
-                <TouchableOpacity key={e.id} onPress={this.goToListProduct.bind(this)}>
-                  <ImageBackground source={{ uri: `${urlImageType}${e.image}` }} style={imageBanner}>
-                    <Text style={txtNameProduct}>{e.name}</Text>
-                  </ImageBackground>
-                </TouchableOpacity>
-              ))
-            }
-          </Swiper>
+          { arrayType.length ? swiperView : null }
         </View>
       </View>
     );

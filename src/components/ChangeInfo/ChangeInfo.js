@@ -69,6 +69,7 @@ export default class ChangeInfo extends Component {
         <View style={body}>
           <Form>
             <TextInput
+              editable={false}
               underlineColorAndroid='transparent'
               returnKeyType='next'
               style={textInput}
