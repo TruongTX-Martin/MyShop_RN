@@ -5,11 +5,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
-  ListView
+  ListView, RefreshControl
 } from 'react-native';
 import Headers from '../Header';
 import getListProduct from '../../../../api/getListProduct';
 import Config from '../../../Config';
+import Utils from '../../../../utils/Utils';
 import imgBack from '../../../../media/appIcon/backList.png';
 
 export default class ListProduct extends Component {
@@ -18,7 +19,9 @@ export default class ListProduct extends Component {
     super(props);
     this.state = {
       category: null,
-      listProduct: []
+      listProduct: [],
+      refreshing: false,
+      page: 1
     };
   }
 
@@ -27,16 +30,37 @@ export default class ListProduct extends Component {
     this.setState({
       category
     });
-    getListProduct(category.id, 1)
-      .then(res => this.setState({ listProduct: res }))
-      .catch(error => console.log('get list product error:' + error));
+    this.requestListProduct(category.id, this.state.page);
   }
+
+  onRefreshListProduct() {
+    this.setState({
+      refreshing: true,
+      page: this.state.page + 1
+    }, () => {
+      this.requestListProduct(this.state.category.id, this.state.page);
+    });
+  }
+
   onBackPress() {
     this.props.navigation.pop();
   }
+
+  requestListProduct(id, page) {
+    getListProduct(id, page)
+      .then(res => this.setState({
+        refreshing: false,
+        listProduct: res.concat(this.state.listProduct)
+      }))
+      .catch(() => this.setState({ refreshing: false }));
+  }
+
+
   goToDetail() {
     this.props.navigation.navigate('DetailProduct');
   }
+
+
   render() {
     const {
       parrentStyle, container, header, imgBackStyle, txtTitle, viewRightHeader,
@@ -58,6 +82,12 @@ export default class ListProduct extends Component {
           </View>
           <ListView
             enableEmptySections
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefreshListProduct.bind(this)}
+              />
+            }
             dataSource={
               new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(listProduct)
             }
@@ -68,11 +98,11 @@ export default class ListProduct extends Component {
                   source={{ uri: `${Config.urlImageProduct}${product.images[0]}` }}
                 />
                 <View style={productInfo}>
-                  <Text style={txtProductName}>{product.name}</Text>
+                  <Text style={txtProductName}>{Utils.toTitleCase(product.name)}</Text>
                   <Text style={txtProductPrice}>{product.price}$</Text>
-                  <Text style={txtProductMaterial}>{product.material}</Text>
+                  <Text style={txtProductMaterial}>{Utils.toTitleCase(product.material)}</Text>
                   <View style={productRow}>
-                    <Text style={textColor}>{product.color}</Text>
+                    <Text style={textColor}>{Utils.toTitleCase(product.color)}</Text>
                     <View style={circleColor} />
                     <TouchableOpacity onPress={this.goToDetail.bind(this)}>
                       <Text style={txtShowDetail}>SHOW DETAILS</Text>
