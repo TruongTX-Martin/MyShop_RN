@@ -1,13 +1,34 @@
 import React, { Component } from 'react';
 import {
-  View, TouchableOpacity, Text, Image, StyleSheet, Dimensions, ScrollView
+  View, TouchableOpacity, Text, Image, StyleSheet, Dimensions, ScrollView, ListView
 } from 'react-native';
+import getOrderHistory from '../../api/getOrderHistory';
+import getToken from '../../api/getToken';
 import backSpecial from '../../media/appIcon/back_white.png';
 
 export default class OrderHistory extends Component {
   constructor(props) {
     super(props);
     this.state = { arrOrder: [] };
+  }
+
+  componentDidMount() {
+    //get token
+    getToken()
+      .then(token => {
+        console.log(token);
+        this.getOrderHistory(token);
+      });
+  }
+
+  getOrderHistory(token) {
+    getOrderHistory(token)
+      .then(arrOrder => {
+        this.setState({
+          arrOrder
+        });
+      })
+      .catch(() => console.log('Order history error:'));
   }
   goBackToMain() {
     this.props.navigation.pop();
@@ -24,100 +45,32 @@ export default class OrderHistory extends Component {
           <View />
         </View>
         <View style={body}>
-          <ScrollView>
-            <View style={orderRow}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Order id:</Text>
-                <Text style={{ color: '#2ABB9C' }}>ORD001</Text>
+          <ListView
+            enableEmptySections
+            dataSource={
+              new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(this.state.arrOrder)
+            }
+            renderRow={order => (
+              <View style={orderRow}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Order id:</Text>
+                  <Text style={{ color: '#2ABB9C' }}>{order.id}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>OrderTime:</Text>
+                  <Text style={{ color: '#C21C70' }}>{order.date_order}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
+                  <Text style={{ color: '#2ABB9C' }}>{order.status}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
+                  <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>{order.total}$</Text>
+                </View>
               </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>OrderTime:</Text>
-                <Text style={{ color: '#C21C70' }}>2017-04-19 08:30:08</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
-                <Text style={{ color: '#2ABB9C' }}>Pending</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
-                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>100$</Text>
-              </View>
-            </View>
-
-            <View style={orderRow}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Order id:</Text>
-                <Text style={{ color: '#2ABB9C' }}>ORD001</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>OrderTime:</Text>
-                <Text style={{ color: '#C21C70' }}>2017-04-19 08:30:08</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
-                <Text style={{ color: '#2ABB9C' }}>Pending</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
-                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>100$</Text>
-              </View>
-            </View>
-
-            <View style={orderRow}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Order id:</Text>
-                <Text style={{ color: '#2ABB9C' }}>ORD001</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>OrderTime:</Text>
-                <Text style={{ color: '#C21C70' }}>2017-04-19 08:30:08</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
-                <Text style={{ color: '#2ABB9C' }}>Pending</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
-                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>100$</Text>
-              </View>
-            </View>
-            <View style={orderRow}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Order id:</Text>
-                <Text style={{ color: '#2ABB9C' }}>ORD001</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>OrderTime:</Text>
-                <Text style={{ color: '#C21C70' }}>2017-04-19 08:30:08</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
-                <Text style={{ color: '#2ABB9C' }}>Pending</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
-                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>100$</Text>
-              </View>
-            </View>
-            <View style={orderRow}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Order id:</Text>
-                <Text style={{ color: '#2ABB9C' }}>ORD001</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>OrderTime:</Text>
-                <Text style={{ color: '#C21C70' }}>2017-04-19 08:30:08</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
-                <Text style={{ color: '#2ABB9C' }}>Pending</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
-                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>100$</Text>
-              </View>
-            </View>
-          </ScrollView>
+            )}
+          />
         </View>
       </View>
     );
@@ -164,3 +117,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   }
 });
+
