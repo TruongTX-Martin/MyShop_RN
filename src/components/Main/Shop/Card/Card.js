@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import {
   View, Text, TouchableOpacity,
-  Dimensions, StyleSheet, Image, ListView, AsyncStorage
+  Dimensions, StyleSheet, Image, ListView
 } from 'react-native';
+import Toast from 'react-native-simple-toast';
 import Global from '../../../../components/Global';
 
 import Headers from '../Header';
 import Config from '../../../../components/Config';
 import saveCart from '../../../../api/saveCart';
 import getCart from '../../../../api/getCart';
+import checkoutCart from '../../../../api/checkoutCart';
+import getToken from '../../../../api/getToken';
 
 function toTitleCase(str) {
   return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -21,19 +24,42 @@ export default class Card extends Component {
     this.state = {
       cartArray: []
     };
-    console.log('constructor');
     Global.addProductToCart = this.addProductToCart.bind(this);
   }
 
   componentDidMount() {
-    console.log('component didmount');
     getCart()
       .then(cartArray => {
-        console.log('didmount array:' + cartArray);
         this.setState({
           cartArray
         });
       });
+  }
+
+  async onCheckout() {
+    try {
+      const token = await getToken();
+      if (!token) {
+        Toast.show('Please login to checkout');
+        return;
+      }
+      const arrayDetail = this.state.cartArray.map(e => ({
+        id: e.product.id,
+        quantity: e.quantity
+      }));
+      const result = await checkoutCart(token, arrayDetail);
+      if (result === 'THEM_THANH_CONG') {
+        saveCart([]);
+        this.setState({
+          cartArray: []
+        });
+        Toast.show('Checkout success');
+      } else {
+        console.log('Checkout failed');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   incrQuantity(productId) {
@@ -85,8 +111,12 @@ export default class Card extends Component {
       productViewStyle, mainRight, productController,
       txtName, txtPrice, productImage, numberOfProduct,
       txtShowDetail, showDetailContainer } = styles;
-    const arrayTotal = this.state.cartArray.map(e => e.product.price * e.quantity);
-    const total = arrayTotal.length ? arrayTotal.reduce((a, b) => a + b) : 0;
+    let arrayTotal;
+    let total;
+    if (this.state.cartArray) {
+      arrayTotal = this.state.cartArray.map(e => e.product.price * e.quantity);
+      total = arrayTotal.length ? arrayTotal.reduce((a, b) => a + b) : 0;
+    }
     return (
       <View style={wrapper}>
         <Headers navigator={this.props.navigation} />
@@ -127,7 +157,7 @@ export default class Card extends Component {
             </View>
           )}
         />
-        <TouchableOpacity style={checkoutButton}>
+        <TouchableOpacity style={checkoutButton} onPress={this.onCheckout.bind(this)}>
           <Text style={checkoutTitle}>TOTAL {total}$ CHECKOUT NOW</Text>
         </TouchableOpacity>
       </View>

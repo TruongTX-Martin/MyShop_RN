@@ -89,7 +89,8 @@ export default class ListProduct extends Component {
               />
             }
             dataSource={
-              new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(listProduct)
+              new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+                .cloneWithRows(listProduct)
             }
             renderRow={product => (
               <View style={wrapper}>
@@ -198,20 +199,3 @@ const styles = StyleSheet.create({
     color: '#DD4D97'
   }
 });
-
-/* <View style={wrapper}>
-            <Image style={imgProduct} source={sp1} />
-            <View style={productInfo}>
-              <Text style={txtProductName}>Lace Sleeve Si</Text>
-              <Text style={txtProductPrice}>117$</Text>
-              <Text style={txtProductMaterial}>Material silk</Text>
-              <View style={productRow}>
-                <Text style={textColor}>Color RoyalBlue</Text>
-                <View style={circleColor} />
-                <TouchableOpacity onPress={this.goToDetail.bind(this)}>
-                  <Text style={txtShowDetail}>SHOW DETAILS</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View> */
-
