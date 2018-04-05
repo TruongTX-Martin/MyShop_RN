@@ -8,9 +8,9 @@ import Swiper from 'react-native-swiper';
 const { width, height } = Dimensions.get('window');
 const urlImageType = 'http://192.168.90.18/api/images/type/';
 export default class Category extends Component {
-  goToListProduct() {
-    console.log('Go to detail');
-    this.props.navigator.navigate('ListProduct');
+  goToListProduct(category) {
+    console.log('Go to detail' + category.name);
+    this.props.navigator.navigate('ListProduct', { category });
   }
   render() {
     const { arrayType } = this.props;
@@ -19,7 +19,7 @@ export default class Category extends Component {
       <Swiper style={swiper} showsButtons>
         {
           arrayType.map(e => (
-            <TouchableOpacity key={e.id} onPress={this.goToListProduct.bind(this)}>
+            <TouchableOpacity key={e.id} onPress={() => this.goToListProduct(e)}>
               <ImageBackground source={{ uri: `${urlImageType}${e.image}` }} style={imageBanner}>
                 <Text style={txtNameProduct}>{e.name}</Text>
               </ImageBackground>
@@ -34,7 +34,7 @@ export default class Category extends Component {
           <Text style={tvTitle}>LIST OF CATEGORY</Text>
         </View>
         <View style={viewImage}>
-          { arrayType.length ? swiperView : null }
+          {arrayType.length ? swiperView : null}
         </View>
       </View>
     );
