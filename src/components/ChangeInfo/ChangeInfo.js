@@ -3,7 +3,7 @@ import {
   View, TouchableOpacity, Text, Image, StyleSheet
 } from 'react-native';
 import { Form, TextInput } from 'react-native-autofocus';
-import Toast from 'react-native-simple-toast';
+import Utils from '../../utils/Utils';
 import backSpecial from '../../media/appIcon/back_white.png';
 import changeInfo from '../../api/changeInfo';
 import getToken from '../../api/getToken';
@@ -39,7 +39,7 @@ export default class ChangeInfo extends Component {
           .then(userUpdate => {
             Global.onLoginSuccess(userUpdate);
             this.props.navigation.pop();
-            Toast.show('Save infor success');
+            Utils.showToast('Save infor success');
           })
           .catch(error => console.log('Change info error:' + error));
       });

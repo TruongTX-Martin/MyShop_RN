@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Image
 } from 'react-native';
-import Toast from 'react-native-simple-toast';
+import Utils from '../../utils/Utils';
 import Global from '../../components/Global';
 import imgProfile from '../../media/temp/profile.png';
 import saveToken from '../../api/saveToken';
@@ -62,7 +62,7 @@ export default class Menu extends Component {
       isLogIn: false,
       user: null
     });
-    Toast.show('Logout success');
+    Utils.showToast('Logout success');
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import Toast from 'react-native-simple-toast';
+import Utils from '../../utils/Utils';
 import signIn from '../../api/signIn';
 import Global from '../Global';
 import saveToken from '../../api/saveToken';
@@ -27,7 +27,7 @@ export default class SignIn extends Component {
   }
 
   onSignInSuccess(res) {
-    Toast.show('Login success');
+    Utils.showToast('Login success');
     Global.onLoginSuccess(res.user);
     saveToken(res.token);
     this.props.navigation.pop();
@@ -36,11 +36,11 @@ export default class SignIn extends Component {
   signIn() {
     const { email, password } = this.state;
     if (!email) {
-      Toast.show('Please type your email');
+      Utils.showToast('Please type your email');
       return;
     }
     if (!password) {
-      Toast.show('Please type your password');
+      Utils.showToast('Please type your password');
       return;
     }
     signIn(email, password)

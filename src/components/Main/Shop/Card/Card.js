@@ -3,7 +3,7 @@ import {
   View, Text, TouchableOpacity,
   Dimensions, StyleSheet, Image, ListView
 } from 'react-native';
-import Toast from 'react-native-simple-toast';
+import Utils from '../../../../utils/Utils';
 import Global from '../../../../components/Global';
 
 import Headers from '../Header';
@@ -40,7 +40,7 @@ export default class Card extends Component {
     try {
       const token = await getToken();
       if (!token) {
-        Toast.show('Please login to checkout');
+        Utils.showToast('Please login to checkout');
         return;
       }
       const arrayDetail = this.state.cartArray.map(e => ({
@@ -53,7 +53,7 @@ export default class Card extends Component {
         this.setState({
           cartArray: []
         });
-        Toast.show('Checkout success');
+        Utils.showToast('Checkout success');
       } else {
         console.log('Checkout failed');
       }

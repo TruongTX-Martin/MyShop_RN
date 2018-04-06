@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import Toast from 'react-native-simple-toast';
 import { Form, TextInput } from 'react-native-autofocus';
+import Utils from '../../utils/Utils';
 import register from '../../api/register';
 
 export default class SignUp extends Component {
@@ -48,27 +48,27 @@ export default class SignUp extends Component {
   registerUser() {
     const { email, name, password, rePassword } = this.state;
     if (!email) {
-      Toast.show('Please type your email');
+      Utils.showToast('Please type your email');
       return;
     }
     if (!name) {
-      Toast.show('Please type your name');
+      Utils.showToast('Please type your name');
       return;
     }
     if (!password) {
-      Toast.show('Please type your password');
+      Utils.showToast('Please type your password');
       return;
     }
     if (!rePassword) {
-      Toast.show('Please type your repassword');
+      Utils.showToast('Please type your repassword');
       return;
     }
     if (password !== rePassword) {
-      Toast.show('Password and RePassword not match');
+      Utils.showToast('Password and RePassword not match');
       return;
     }
     if (!this.validateEmail(email)) {
-      Toast.show('Email not correct format');
+      Utils.showToast('Email not correct format');
       return;
     }
     register(email, name, password)
