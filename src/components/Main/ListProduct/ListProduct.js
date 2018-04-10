@@ -7,7 +7,7 @@ import {
   Image,
   ListView, RefreshControl
 } from 'react-native';
-import Headers from '../Header';
+import Header from '../../../Common/Header';
 import getListProduct from '../../../api/getListProduct';
 import Config from '../../Config';
 import Utils from '../../../utils/Utils';
@@ -63,7 +63,7 @@ export default class ListProduct extends Component {
 
   render() {
     const {
-      parrentStyle, container, header, imgBackStyle, txtTitle, viewRightHeader,
+      parrentStyle, container,
       wrapper, imgProduct, productInfo, txtProductName, txtProductPrice,
       txtProductMaterial, productRow, textColor, circleColor, txtShowDetail
     } = styles;
@@ -71,15 +71,8 @@ export default class ListProduct extends Component {
 
     return (
       <View style={parrentStyle}>
-        <Headers navigator={this.props.navigation} />
+        <Header navigator={this.props.navigation} title={category ? category.name : ''} />
         <View style={container}>
-          <View style={header}>
-            <TouchableOpacity onPress={this.onBackPress.bind(this)}>
-              <Image style={imgBackStyle} source={imgBack} />
-            </TouchableOpacity>
-            <Text style={txtTitle}>{category ? category.name : ''}</Text>
-            <View style={viewRightHeader} />
-          </View>
           <ListView
             enableEmptySections
             refreshControl={
@@ -130,25 +123,6 @@ const styles = StyleSheet.create({
     shadowColor: 'gray',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  imgBackStyle: {
-    width: 30,
-    height: 30,
-    marginLeft: 10
-  },
-  txtTitle: {
-    color: '#DD4D97',
-    fontSize: 20
-  },
-  viewRightHeader: {
-    width: 30,
-    height: 30
   },
   wrapper: {
     flexDirection: 'row',
