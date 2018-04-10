@@ -4,9 +4,9 @@ import {
 } from 'react-native';
 import Header from '../../../Common/Header';
 import Config from '../../Config';
-import Global from '../../../components/Global';
 import getCart from '../../../api/getCart';
 import saveCart from '../../../api/saveCart';
+import Utils from '../../../utils/Utils';
 
 export default class DetailProduct extends Component {
 
@@ -22,19 +22,29 @@ export default class DetailProduct extends Component {
 
   addProductToCart() {
     const { product } = this.props.navigation.state.params;
-    console.log('11111');
     getCart()
       .then(cartArray => {
-        console.log('get success');
+        const isInCart = cartArray.some(item => item.product.id === product.id);
+        if (isInCart) {
+          Utils.showToast(`${Utils.toTitleCase(product.name)}${' has exits in Cart'}`);
+          return;
+        }
         this.setState({
           cartArray: cartArray.concat({ product, quantity: 1 })
-        }, () => saveCart(this.state.cartArray)
+        },
+          () => {
+            saveCart(this.state.cartArray);
+            Utils.showToast('Add to Cart succeed');
+          }
         );
       })
-      .catch(error => {
-        console.log('get error' + error);
+      .catch(() => {
+        this.setState({
+          cartArray: this.state.cartArray.concat({ product, quantity: 1 })
+        },
+          () => saveCart(this.state.cartArray)
+        );
       });
-    // Global.addProductToCart(product);
   }
 
   render() {
@@ -42,7 +52,8 @@ export default class DetailProduct extends Component {
       wrapper, cardStyle,
       footer, imageContainer, textBlack,
       textSmoke, textHighlight, textMain, titleContainer, scrollViewStyle,
-      descContainer, productImageStyle, descStyle, txtMaterial, txtColor, circleStyle, viewMaterialStyle, txtAddCartStyle,
+      descContainer, productImageStyle, descStyle, txtMaterial,
+      txtColor, circleStyle, viewMaterialStyle, txtAddCartStyle,
       btnAddCartStyle
     } = styles;
     const { product } = this.props.navigation.state.params;

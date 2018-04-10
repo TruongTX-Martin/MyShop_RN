@@ -11,7 +11,7 @@ function showToast(content) {
     shadow: true,
     animation: true,
     hideOnPress: true,
-    delay: 100,
+    delay: 0,
     onShow: () => {
       // calls on toast\`s appear animation start
     },
