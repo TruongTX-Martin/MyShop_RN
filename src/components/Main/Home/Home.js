@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View } from 'react-native';
-import Headers from '../Header';
+import Headers from './HeaderHome';
 import Collection from './Collections';
 import Category from './Category';
 import TopProduct from './TopProduct';

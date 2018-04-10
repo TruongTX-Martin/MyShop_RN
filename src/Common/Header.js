@@ -19,8 +19,8 @@ export default class Header extends Component {
     navigator.pop();
   }
   render() {
-    const { swrapper, viewTop, imageMenu, titleStyle } = styles;
-    const { title } = this.props;
+    const { swrapper, viewTop, imageMenu, titleStyle, imageMenuHidden } = styles;
+    const { title, hideCartIcon } = this.props;
     return (
       <View style={swrapper}>
         <View style={viewTop}>
@@ -28,7 +28,7 @@ export default class Header extends Component {
             <Image source={backSpecial} style={imageMenu} />
           </TouchableOpacity>
           <Text style={titleStyle}>{title}</Text>
-          <Image source={icLogo} style={imageMenu} />
+          <Image source={icLogo} style={hideCartIcon ? imageMenuHidden : imageMenu} />
         </View>
       </View>
     );
@@ -48,6 +48,10 @@ const styles = StyleSheet.create({
   imageMenu: {
     width: 25,
     height: 25
+  },
+  imageMenuHidden: {
+    width: 0,
+    height: 0
   },
   titleStyle: {
     fontSize: 20,

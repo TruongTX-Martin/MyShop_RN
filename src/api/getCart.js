@@ -10,6 +10,7 @@ const getCart = async () => {
     }
     return [];
   } catch (error) {
+    console.log('Catch:' + error);
     return [];
   }
 };

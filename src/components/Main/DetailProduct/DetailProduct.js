@@ -4,25 +4,56 @@ import {
 } from 'react-native';
 import Header from '../../../Common/Header';
 import Config from '../../Config';
-import Global from '../../../components/Global';
+import getCart from '../../../api/getCart';
+import saveCart from '../../../api/saveCart';
+import Utils from '../../../utils/Utils';
 
 export default class DetailProduct extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      cartArray: []
+    };
+  }
   goBack() {
     this.props.navigation.pop();
   }
 
   addProductToCart() {
     const { product } = this.props.navigation.state.params;
-    Global.addProductToCart(product);
+    getCart()
+      .then(cartArray => {
+        const isInCart = cartArray.some(item => item.product.id === product.id);
+        if (isInCart) {
+          Utils.showToast(`${Utils.toTitleCase(product.name)}${' has exits in Cart'}`);
+          return;
+        }
+        this.setState({
+          cartArray: cartArray.concat({ product, quantity: 1 })
+        },
+          () => {
+            saveCart(this.state.cartArray);
+            Utils.showToast('Add to Cart succeed');
+          }
+        );
+      })
+      .catch(() => {
+        this.setState({
+          cartArray: this.state.cartArray.concat({ product, quantity: 1 })
+        },
+          () => saveCart(this.state.cartArray)
+        );
+      });
   }
 
   render() {
     const {
-      wrapper, cardStyle, header,
-      footer, backStyle,
-      imageContainer, cartStyle, textBlack,
+      wrapper, cardStyle,
+      footer, imageContainer, textBlack,
       textSmoke, textHighlight, textMain, titleContainer, scrollViewStyle,
-      descContainer, productImageStyle, descStyle, txtMaterial, txtColor, circleStyle, viewMaterialStyle, txtAddCartStyle,
+      descContainer, productImageStyle, descStyle, txtMaterial,
+      txtColor, circleStyle, viewMaterialStyle, txtAddCartStyle,
       btnAddCartStyle
     } = styles;
     const { product } = this.props.navigation.state.params;
@@ -91,21 +122,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: 10,
     marginVertical: 10
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    flex: 1,
-    paddingHorizontal: 15,
-    paddingTop: 20
-  },
-  cartStyle: {
-    width: 25,
-    height: 25
-  },
-  backStyle: {
-    width: 25,
-    height: 25
   },
   productStyle: {
     width: width / 2,
