@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
-import { MainStack } from './Router';
+import { SlideMenu } from './Router';
 import refreshToken from '../api/refreshToken';
 import getToken from '../api/getToken';
 import saveToken from '../api/saveToken';
@@ -23,7 +23,7 @@ export default class App extends Component {
   }
   render() {
     return (
-      <MainStack />
+      <SlideMenu />
     );
   }
 }

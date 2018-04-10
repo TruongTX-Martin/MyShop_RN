@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 
-import map from '../../../../media/appIcon/map.png';
-import phoneIcon from '../../../../media/appIcon/phone.png';
-import mailIcon from '../../../../media/appIcon/mail.png';
-import messageIcon from '../../../../media/appIcon/message.png';
-import locationIcon from '../../../../media/appIcon/location.png';
-import backSpecial from '../../../../media/appIcon/back_white.png';
+import map from '../../media/appIcon/map.png';
+import phoneIcon from '../../media/appIcon/phone.png';
+import mailIcon from '../../media/appIcon/mail.png';
+import messageIcon from '../../media/appIcon/message.png';
+import locationIcon from '../../media/appIcon/location.png';
+import backSpecial from '../../media/appIcon/back_white.png';
 
 export default class Contact extends Component {
 
