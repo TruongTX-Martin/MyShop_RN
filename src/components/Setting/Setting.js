@@ -2,22 +2,39 @@ import React, { Component } from 'react';
 import {
   View, TouchableOpacity, Text, Image, StyleSheet, Picker
 } from 'react-native';
+import saveLanguage from '../../api/saveLanguage';
+import getLanguage from '../../api/getLanguage';
 import backSpecial from '../../media/appIcon/back_white.png';
+import string from './string';
 
 export default class Setting extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      language: ''
+      language: string.VIETNAM_VALUE
     };
+  }
+
+  componentDidMount() {
+    getLanguage()
+      .then(language => {
+        this.setState({
+          language
+        });
+      });
   }
 
   goBackToMain() {
     this.props.navigation.pop();
   }
 
-  updateLanguage() {
+  updateLanguage = (language) => {
+    this.setState({
+      language
+    }, () => {
+      saveLanguage(language);
+    });
   }
 
   render() {
@@ -35,10 +52,15 @@ export default class Setting extends Component {
         </View>
         <View style={body}>
           <View style={viewRowStyle}>
-            <Text style={textLanguage} >Language</Text>
-            <Picker style={{ flex: 1 }} selectedValue={this.state.language} onValueChange={this.updateLanguage}>
-              <Picker.Item label="Viet Nam" value="Viet Nam" />
-              <Picker.Item label="English" value="English" />
+            <Text style={textLanguage} >{string.LANGUAGE}</Text>
+            <Picker
+              style={{ flex: 1 }}
+              selectedValue={this.state.language}
+              onValueChange={this.updateLanguage.bind(this)}
+              value={this.state.language}
+            >
+              <Picker.Item label={string.VIETNAM_LABEL} value={string.VIETNAM_VALUE} />
+              <Picker.Item label={string.ENGLISH_LABEL} value={string.ENGLISH_VALUE} />
             </Picker>
           </View>
         </View>
