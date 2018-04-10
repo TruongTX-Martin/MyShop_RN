@@ -10,6 +10,7 @@ import Utils from '../../utils/Utils';
 import Global from '../../components/Global';
 import imgProfile from '../../media/temp/profile.png';
 import saveToken from '../../api/saveToken';
+import imgExtend from '../../media/appIcon/ic_extend.png';
 
 
 export default class Menu extends Component {
@@ -88,7 +89,7 @@ export default class Menu extends Component {
           <TouchableOpacity style={rowParrenStyle} onPress={this.ToOrderHistory.bind(this)}>
             <View style={rowStyle}>
               <Text style={textSignIn}>Order History</Text>
-              <Text style={btnExtendStyle}>></Text>
+              <Image style={btnExtendStyle} source={imgExtend} />
             </View>
           </TouchableOpacity>
           <View style={separateStyle} />
@@ -96,7 +97,7 @@ export default class Menu extends Component {
           <TouchableOpacity style={rowParrenStyle} onPress={this.toChangeInfo.bind(this)}>
             <View style={rowStyle}>
               <Text style={textSignIn}>Change Info</Text>
-              <Text style={btnExtendStyle}>></Text>
+              <Image style={btnExtendStyle} source={imgExtend} />
             </View>
           </TouchableOpacity>
           <View style={separateStyle} />
@@ -104,7 +105,7 @@ export default class Menu extends Component {
           <TouchableOpacity style={rowParrenStyle} onPress={this.signOut.bind(this)}>
             <View style={rowStyle}>
               <Text style={textSignIn}>Sign out</Text>
-              <Text style={btnExtendStyle}>></Text>
+              <Image style={btnExtendStyle} source={imgExtend} />
             </View>
           </TouchableOpacity>
           <View style={separateStyle} />
@@ -112,7 +113,7 @@ export default class Menu extends Component {
           <TouchableOpacity style={rowParrenStyle} onPress={this.toContact.bind(this)}>
             <View style={rowStyle}>
               <Text style={textSignIn}>Contact</Text>
-              <Text style={btnExtendStyle}>></Text>
+              <Image style={btnExtendStyle} source={imgExtend} />
             </View>
           </TouchableOpacity>
 
@@ -184,8 +185,8 @@ const styles = StyleSheet.create({
     paddingVertical: 7
   },
   btnExtendStyle: {
-    color: '#fff',
-    fontSize: 20
+    width: 30,
+    height: 20
   },
   separateStyle: {
     height: 1,
