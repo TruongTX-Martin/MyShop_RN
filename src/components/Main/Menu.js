@@ -75,7 +75,7 @@ export default class Menu extends Component {
         <TouchableOpacity style={rowParrenStyle} onPress={this.toAuthentication.bind(this)}>
           <View style={rowStyle}>
             <Text style={textSignIn}>Sign In</Text>
-            <Text style={btnExtendStyle}>></Text>
+            <Image style={btnExtendStyle} source={imgExtend} />
           </View>
         </TouchableOpacity>
       </View>
