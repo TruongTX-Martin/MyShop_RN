@@ -1,16 +1,16 @@
 import React from 'react';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 // import Main from './Main/Main';
-import Menu from './Main/Menu';
-import Home from './Main/Shop/Home/Home';
+import Menu from './Main/SlideMenu/Menu';
+import Home from './Main/Home/Home';
 import Contact from './Contact/Contact';
-import Search from './Main/Shop/Search/Search';
+import Search from './Main/Search/Search';
 import Authentication from './Authentication/Authentication';
 import ChangeInfo from './ChangeInfo/ChangeInfo';
 import OrderHistory from './OrderHistory/OrderHistory';
-import DetailProduct from './Main/Shop/DetailProduct/DetailProduct';
-import ListProduct from './Main/Shop/ListProduct/ListProduct';
-import TopProduct from './Main/Shop/Home/TopProduct';
+import DetailProduct from './Main/DetailProduct/DetailProduct';
+import ListProduct from './Main/ListProduct/ListProduct';
+import TopProduct from './Main/Home/TopProduct';
 
 export const HomeStack = StackNavigator({
   Home: {

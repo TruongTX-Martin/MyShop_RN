@@ -3,11 +3,11 @@ import {
   View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity
 } from 'react-native';
 import Headers from '../Header';
-import Config from '../../../Config';
-import Global from '../../../../components/Global';
+import Config from '../../Config';
+import Global from '../../../components/Global';
 
-const back = require('../../../../media/appIcon/back.png');
-const cart = require('../../../../media/appIcon/cartfull.png');
+const back = require('../../../media/appIcon/back.png');
+const cart = require('../../../media/appIcon/cartfull.png');
 
 export default class DetailProduct extends Component {
   goBack() {

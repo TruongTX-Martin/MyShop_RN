@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 
-import imgBanner from '../../../../media/temp/banner.jpg';
+import imgBanner from '../../../media/temp/banner.jpg';
 
 const { width, height } = Dimensions.get('window');
 export default class Collection extends Component {

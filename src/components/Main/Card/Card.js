@@ -3,15 +3,15 @@ import {
   View, Text, TouchableOpacity,
   Dimensions, StyleSheet, Image, ListView
 } from 'react-native';
-import Utils from '../../../../utils/Utils';
-import Global from '../../../../components/Global';
+import Utils from '../../../utils/Utils';
+import Global from '../../../components/Global';
 
 import Headers from '../Header';
-import Config from '../../../../components/Config';
-import saveCart from '../../../../api/saveCart';
-import getCart from '../../../../api/getCart';
-import checkoutCart from '../../../../api/checkoutCart';
-import getToken from '../../../../api/getToken';
+import Config from '../../../components/Config';
+import saveCart from '../../../api/saveCart';
+import getCart from '../../../api/getCart';
+import checkoutCart from '../../../api/checkoutCart';
+import getToken from '../../../api/getToken';
 
 function toTitleCase(str) {
   return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -124,11 +124,16 @@ export default class Card extends Component {
           contentContainerStyle={main}
           enableEmptySections
           dataSource={
-            new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(this.state.cartArray)
+            new ListView.DataSource({
+              rowHasChanged: (r1, r2) => r1 !== r2
+            }).cloneWithRows(this.state.cartArray)
           }
           renderRow={cartItem => (
             <View style={productViewStyle}>
-              <Image source={{ uri: `${Config.urlImageProduct}${cartItem.product.images[0]}` }} style={productImage} />
+              <Image
+                source={{ uri: `${Config.urlImageProduct}${cartItem.product.images[0]}` }}
+                style={productImage}
+              />
               <View style={[mainRight]}>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
                   <Text style={txtName}>{toTitleCase(cartItem.product.name)}</Text>

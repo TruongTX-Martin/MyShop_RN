@@ -9,7 +9,7 @@ import {
   ListView
 } from 'react-native';
 
-import Config from '../../../../components/Config';
+import Config from '../../../components/Config';
 
 export default class TopProduct extends Component {
 
@@ -32,7 +32,9 @@ export default class TopProduct extends Component {
           contentContainerStyle={body}
           enableEmptySections
           dataSource={
-            new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(this.props.arrayProduct)
+            new ListView.DataSource({
+              rowHasChanged: (r1, r2) => r1 !== r2
+            }).cloneWithRows(this.props.arrayProduct)
           }
           renderRow={e => (
             <TouchableOpacity
@@ -49,8 +51,8 @@ export default class TopProduct extends Component {
             </TouchableOpacity>
           )}
           renderSeparator={(sectionId, rowId) => {
-              if (rowId % 2 === 1) return <View style={{ width, height: 10 }} />;
-              return null;
+            if (rowId % 2 === 1) return <View style={{ width, height: 10 }} />;
+            return null;
           }}
         />
       </View>

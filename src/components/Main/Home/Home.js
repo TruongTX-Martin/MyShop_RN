@@ -4,11 +4,11 @@ import Headers from '../Header';
 import Collection from './Collections';
 import Category from './Category';
 import TopProduct from './TopProduct';
-import initData from '../../../../api/initData';
-import getToken from '../../../../api/getToken';
-import checkLogin from '../../../../api/checkLogin';
-import saveToken from '../../../../api/saveToken';
-import Global from '../../../Global';
+import initData from '../../../api/initData';
+import getToken from '../../../api/getToken';
+import checkLogin from '../../../api/checkLogin';
+import saveToken from '../../../api/saveToken';
+import Global from '../../Global';
 
 export default class Home extends Component {
 
@@ -37,9 +37,8 @@ export default class Home extends Component {
             saveToken(res.token);
             Global.onLoginSuccess(res.user);
           })
-          .catch(error => {
+          .catch(() => {
             saveToken('');
-            console.log('Check Login Failed:' + error);
           });
       });
   }

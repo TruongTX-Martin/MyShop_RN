@@ -3,8 +3,8 @@ import {
   StyleSheet, Text, TouchableOpacity, ScrollView, View, Image, Dimensions
 } from 'react-native';
 import Headers from '../Header';
-import sp1 from '../../../../media/temp/sp3.jpeg';
-import sp4 from '../../../../media/temp/sp4.jpeg';
+import sp1 from '../../../media/temp/sp3.jpeg';
+import sp4 from '../../../media/temp/sp4.jpeg';
 
 function toTitleCase(str) {
   return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());

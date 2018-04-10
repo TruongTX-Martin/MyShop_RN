@@ -6,11 +6,11 @@ import {
   StyleSheet,
   Image
 } from 'react-native';
-import Utils from '../../utils/Utils';
-import Global from '../../components/Global';
-import imgProfile from '../../media/temp/profile.png';
-import saveToken from '../../api/saveToken';
-import imgExtend from '../../media/appIcon/ic_extend.png';
+import Utils from '../../../utils/Utils';
+import Global from '../../../components/Global';
+import imgProfile from '../../../media/temp/profile.png';
+import saveToken from '../../../api/saveToken';
+import imgExtend from '../../../media/appIcon/ic_extend.png';
 
 
 export default class Menu extends Component {

@@ -9,7 +9,6 @@ const { width, height } = Dimensions.get('window');
 const urlImageType = 'http://192.168.90.18/api/images/type/';
 export default class Category extends Component {
   goToListProduct(category) {
-    console.log('Go to detail' + category.name);
     this.props.navigator.navigate('ListProduct', { category });
   }
   render() {
