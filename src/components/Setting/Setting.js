@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import {
   View, TouchableOpacity, Text, Image, StyleSheet, Picker
 } from 'react-native';
+import I18n from 'react-native-i18n';
 import saveLanguage from '../../api/saveLanguage';
 import getLanguage from '../../api/getLanguage';
 import backSpecial from '../../media/appIcon/back_white.png';
+import { strings } from '../../i18n';
 import string from './string';
 
 export default class Setting extends Component {
@@ -30,10 +32,13 @@ export default class Setting extends Component {
   }
 
   updateLanguage = (language) => {
+    if (language === this.state.language) {
+      return;
+    }
+    I18n.locale = language;
+    saveLanguage(language);
     this.setState({
       language
-    }, () => {
-      saveLanguage(language);
     });
   }
 
@@ -41,18 +46,19 @@ export default class Setting extends Component {
     const {
       wrapper, header, headerTitle, backIconStyle, body, viewRowStyle, textLanguage
     } = styles;
+    console.log('render setting');
     return (
       <View style={wrapper}>
         <View style={header}>
           <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
             <Image source={backSpecial} style={backIconStyle} />
           </TouchableOpacity>
-          <Text style={headerTitle}>Setting</Text>
+          <Text style={headerTitle}>{strings('settingScreen.setting')}</Text>
           <View />
         </View>
         <View style={body}>
           <View style={viewRowStyle}>
-            <Text style={textLanguage} >{string.LANGUAGE}</Text>
+            <Text style={textLanguage} >{strings('settingScreen.language')}</Text>
             <Picker
               style={{ flex: 1 }}
               selectedValue={this.state.language}

@@ -1,6 +1,6 @@
 const string = {
-  ENGLISH_VALUE: 'english',
-  VIETNAM_VALUE: 'vietnam',
+  ENGLISH_VALUE: 'en',
+  VIETNAM_VALUE: 'vi',
   VIETNAM_LABEL: 'Việt Nam',
   ENGLISH_LABEL: 'English',
   LANGUAGE: 'Language'
