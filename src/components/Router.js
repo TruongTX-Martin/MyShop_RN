@@ -6,6 +6,7 @@ import Home from './Main/Home/Home';
 import Contact from './Contact/Contact';
 import Search from './Main/Search/Search';
 import Authentication from './Authentication/Authentication';
+import Setting from './Setting/Setting';
 import ChangeInfo from './ChangeInfo/ChangeInfo';
 import OrderHistory from './OrderHistory/OrderHistory';
 import DetailProduct from './Main/DetailProduct/DetailProduct';
@@ -87,6 +88,13 @@ export const SlideMenu = DrawerNavigator({
     screen: Contact,
     navigationOptions: {
       tabBarLabel: 'Contact',
+      header: false
+    }
+  },
+  Setting: {
+    screen: Setting,
+    navigationOptions: {
+      tabBarLabel: 'Setting',
       header: false
     }
   }

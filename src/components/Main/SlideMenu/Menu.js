@@ -51,6 +51,10 @@ export default class Menu extends Component {
     this.props.navigation.navigate('Contact');
   }
 
+  toSetting() {
+    this.props.navigation.navigate('Setting');
+  }
+
   signOut() {
     this.props.navigation.navigate('DrawerClose');
     saveToken('');
@@ -102,17 +106,25 @@ export default class Menu extends Component {
           </TouchableOpacity>
           <View style={separateStyle} />
 
-          <TouchableOpacity style={rowParrenStyle} onPress={this.signOut.bind(this)}>
+          <TouchableOpacity style={rowParrenStyle} onPress={this.toContact.bind(this)}>
             <View style={rowStyle}>
-              <Text style={textSignIn}>Sign out</Text>
+              <Text style={textSignIn}>Contact</Text>
               <Image style={btnExtendStyle} source={imgExtend} />
             </View>
           </TouchableOpacity>
           <View style={separateStyle} />
 
-          <TouchableOpacity style={rowParrenStyle} onPress={this.toContact.bind(this)}>
+          <TouchableOpacity style={rowParrenStyle} onPress={this.toSetting.bind(this)}>
             <View style={rowStyle}>
-              <Text style={textSignIn}>Contact</Text>
+              <Text style={textSignIn}>Setting</Text>
+              <Image style={btnExtendStyle} source={imgExtend} />
+            </View>
+          </TouchableOpacity>
+          <View style={separateStyle} />
+
+          <TouchableOpacity style={rowParrenStyle} onPress={this.signOut.bind(this)}>
+            <View style={rowStyle}>
+              <Text style={textSignIn}>Sign out</Text>
               <Image style={btnExtendStyle} source={imgExtend} />
             </View>
           </TouchableOpacity>
