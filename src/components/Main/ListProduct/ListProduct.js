@@ -11,7 +11,6 @@ import Header from '../../../Common/Header';
 import getListProduct from '../../../api/getListProduct';
 import Config from '../../Config';
 import Utils from '../../../utils/Utils';
-import imgBack from '../../../media/appIcon/backList.png';
 
 export default class ListProduct extends Component {
 

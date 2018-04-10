@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity
 } from 'react-native';
-import Headers from '../Header';
+import Header from '../../../Common/Header';
 import Config from '../../Config';
 import Global from '../../../components/Global';
-
-const back = require('../../../media/appIcon/back.png');
-const cart = require('../../../media/appIcon/cartfull.png');
 
 export default class DetailProduct extends Component {
   goBack() {
@@ -24,29 +21,21 @@ export default class DetailProduct extends Component {
       wrapper, cardStyle, header,
       footer, backStyle,
       imageContainer, cartStyle, textBlack,
-      textSmoke, textHighlight, textMain, titleContainer,
-      descContainer, productImageStyle, descStyle, txtMaterial, txtColor
+      textSmoke, textHighlight, textMain, titleContainer, scrollViewStyle,
+      descContainer, productImageStyle, descStyle, txtMaterial, txtColor, circleStyle, viewMaterialStyle, txtAddCartStyle,
+      btnAddCartStyle
     } = styles;
     const { product } = this.props.navigation.state.params;
     return (
       <View style={wrapper}>
-        <Headers navigator={this.props.navigation} />
+        <Header
+          navigator={this.props.navigation}
+          title={product ? product.name.toUpperCase() : ''}
+        />
         <View style={cardStyle}>
-          <View style={header}>
-            <TouchableOpacity onPress={this.goBack.bind(this)}>
-              <Image style={backStyle} source={back} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.addProductToCart.bind(this)}>
-              <Image style={cartStyle} source={cart} />
-            </TouchableOpacity>
-          </View>
           <View style={imageContainer}>
             <ScrollView
-              style={{
-                flexDirection: 'row',
-                padding: 10,
-                height: swiperHeight
-              }}
+              style={scrollViewStyle}
               horizontal
             >
               <Image
@@ -69,29 +58,16 @@ export default class DetailProduct extends Component {
             </View>
             <View style={descContainer}>
               <Text style={descStyle}>{product.description}}</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingTop: 15
-                }}
-              >
+              <View style={viewMaterialStyle} >
                 <Text style={txtMaterial}>{product.material.toUpperCase()}</Text>
                 <View style={{ flexDirection: 'row' }} >
                   <Text style={txtColor}>{product.color}</Text>
-                  <View
-                    style={{
-                      height: 15,
-                      width: 15,
-                      backgroundColor: 'green',
-                      borderRadius: 15,
-                      marginLeft: 10,
-                      borderWidth: 1,
-                      borderColor: '#C21C70'
-                    }}
-                  />
+                  <View style={circleStyle} />
                 </View>
               </View>
+              <TouchableOpacity style={btnAddCartStyle} onPress={this.addProductToCart.bind(this)} >
+                <Text style={txtAddCartStyle}>Add to Cart</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -202,6 +178,36 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '400',
     fontFamily: 'Avenir'
+  },
+  circleStyle: {
+    height: 15,
+    width: 15,
+    backgroundColor: 'green',
+    borderRadius: 15,
+    marginLeft: 10,
+    borderWidth: 1,
+    borderColor: '#C21C70'
+  },
+  viewMaterialStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 15
+  },
+  btnAddCartStyle: {
+    height: 40,
+    backgroundColor: '#34B089',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    marginTop: 5
+  },
+  txtAddCartStyle: {
+    color: '#fff',
+    fontSize: 18
+  },
+  scrollViewStyle: {
+    flexDirection: 'row',
+    padding: 10,
+    height: swiperHeight
   }
 });
-
