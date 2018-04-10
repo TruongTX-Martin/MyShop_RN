@@ -5,7 +5,12 @@ function addProductToCart(product) {
 function onLoginSuccess(user) {
   return user;
 }
+function refreshTotalCart() {
+  return;
+}
+
 module.exports = {
   addProductToCart,
-  onLoginSuccess
+  onLoginSuccess,
+  refreshTotalCart
 };

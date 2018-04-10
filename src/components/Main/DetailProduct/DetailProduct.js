@@ -7,6 +7,7 @@ import Config from '../../Config';
 import getCart from '../../../api/getCart';
 import saveCart from '../../../api/saveCart';
 import Utils from '../../../utils/Utils';
+import Global from '../../Global';
 
 export default class DetailProduct extends Component {
 
@@ -24,27 +25,28 @@ export default class DetailProduct extends Component {
     const { product } = this.props.navigation.state.params;
     getCart()
       .then(cartArray => {
-        const isInCart = cartArray.some(item => item.product.id === product.id);
-        if (isInCart) {
-          Utils.showToast(`${Utils.toTitleCase(product.name)}${' has exits in Cart'}`);
-          return;
-        }
-        this.setState({
-          cartArray: cartArray.concat({ product, quantity: 1 })
-        },
-          () => {
-            saveCart(this.state.cartArray);
-            Utils.showToast('Add to Cart succeed');
-          }
-        );
+        this.handleCart(cartArray, product);
       })
       .catch(() => {
-        this.setState({
-          cartArray: this.state.cartArray.concat({ product, quantity: 1 })
-        },
-          () => saveCart(this.state.cartArray)
-        );
+        this.handleCart(this.state.cartArray, product);
       });
+  }
+
+  handleCart(cartArray, product) {
+    const isInCart = cartArray.some(item => item.product.id === product.id);
+    if (isInCart) {
+      Utils.showToast(`${Utils.toTitleCase(product.name)}${' has exits in Cart'}`);
+      return;
+    }
+    this.setState({
+      cartArray: cartArray.concat({ product, quantity: 1 })
+    },
+      () => {
+        saveCart(this.state.cartArray);
+        Utils.showToast('Add to Cart succeed');
+        Global.refreshTotalCart();
+      }
+    );
   }
 
   render() {
@@ -62,6 +64,7 @@ export default class DetailProduct extends Component {
         <Header
           navigator={this.props.navigation}
           title={product ? product.name.toUpperCase() : ''}
+          hideCartIcon
         />
         <View style={cardStyle}>
           <View style={imageContainer}>

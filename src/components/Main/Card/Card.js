@@ -90,7 +90,11 @@ export default class Card extends Component {
     const newCart = this.state.cartArray.filter(e => e.product.id !== productId);
     this.setState({
       cartArray: newCart
-    }, () => saveCart(this.state.cartArray));
+    }, () => {
+      saveCart(this.state.cartArray);
+      Global.refreshTotalCart();
+    }
+    );
   }
 
   gotoDetail() {
@@ -110,7 +114,7 @@ export default class Card extends Component {
     const { main, checkoutButton, checkoutTitle, wrapper,
       productViewStyle, mainRight, productController,
       txtName, txtPrice, productImage, numberOfProduct,
-      txtShowDetail, showDetailContainer } = styles;
+      txtShowDetail, showDetailContainer, textRemoveStyle, viewBottomStyle } = styles;
     let arrayTotal;
     let total;
     if (this.state.cartArray) {
@@ -139,10 +143,10 @@ export default class Card extends Component {
                 style={productImage}
               />
               <View style={[mainRight]}>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                <View style={viewBottomStyle}>
                   <Text style={txtName}>{toTitleCase(cartItem.product.name)}</Text>
                   <TouchableOpacity onPress={() => this.removeProduct(cartItem.product.id)}>
-                    <Text style={{ fontFamily: 'Avenir', color: '#969696' }}>X</Text>
+                    <Text style={textRemoveStyle}>X</Text>
                   </TouchableOpacity>
                 </View>
                 <View>
@@ -254,6 +258,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end'
+  },
+  textRemoveStyle: {
+    fontFamily: 'Avenir',
+    color: '#969696'
+  },
+  viewBottomStyle: {
+    justifyContent: 'space-between',
+    flexDirection: 'row'
   }
 });
 

@@ -6,25 +6,50 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-  TextInput
+  TextInput, ImageBackground
 } from 'react-native';
 import icMenu from '../../../media/appIcon/ic_menu.png';
 import icLogo from '../../../media/appIcon/ic_logo.png';
+import getCart from '../../../api/getCart';
+import Global from '../../Global';
 
 const { height } = Dimensions.get('window');
 export default class HeaderHome extends Component {
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      totalCart: 0
+    };
+    Global.refreshTotalCart = this.getTotalCart.bind(this);
+  }
+
+  componentDidMount() {
+    this.getTotalCart();
+  }
+
 
   onOpenMenu() {
     const { navigator } = this.props;
     navigator.navigate('DrawerOpen');
   }
-
+  getTotalCart() {
+    getCart()
+      .then(cartArray => {
+        this.setState({
+          totalCart: cartArray.length
+        });
+      });
+  }
   goToCart() {
     const { navigator } = this.props;
     navigator.navigate('Card');
   }
+
   render() {
-    const { swrapper, viewTop, imageMenu, title, textInput } = styles;
+    const { swrapper, viewTop, imageMenu, title, textInput,
+      viewCartStyle, textCartStyle, imageCart } = styles;
     return (
       <View style={swrapper}>
         <View style={viewTop}>
@@ -33,7 +58,11 @@ export default class HeaderHome extends Component {
           </TouchableOpacity>
           <Text style={title}>Wearing a Dress</Text>
           <TouchableOpacity onPress={this.goToCart.bind(this)}>
-            <Image source={icLogo} style={imageMenu} />
+            <ImageBackground source={icLogo} style={imageCart} >
+              <View style={viewCartStyle}>
+                <Text style={textCartStyle}>{this.state.totalCart}</Text>
+              </View>
+            </ImageBackground>
           </TouchableOpacity>
         </View>
         <TextInput
@@ -60,6 +89,11 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25
   },
+  imageCart: {
+    width: 25,
+    height: 25,
+    alignItems: 'flex-end',
+  },
   title: {
     fontSize: 20,
     color: 'white'
@@ -69,5 +103,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     paddingLeft: 10,
     paddingVertical: 0
+  },
+  viewCartStyle: {
+    width: 20,
+    height: 20,
+    backgroundColor: '#ffffff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10
+  },
+  textCartStyle: {
+    color: '#34B089',
+    fontSize: 12,
+    fontWeight: 'bold'
   }
 });

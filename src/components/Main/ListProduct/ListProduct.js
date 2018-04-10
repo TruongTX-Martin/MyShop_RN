@@ -55,8 +55,8 @@ export default class ListProduct extends Component {
   }
 
 
-  goToDetail() {
-    this.props.navigation.navigate('DetailProduct');
+  goToDetail(productDetail) {
+    this.props.navigation.navigate('DetailProduct', { product: productDetail });
   }
 
 
@@ -70,7 +70,11 @@ export default class ListProduct extends Component {
 
     return (
       <View style={parrentStyle}>
-        <Header navigator={this.props.navigation} title={category ? category.name : ''} />
+        <Header
+          navigator={this.props.navigation}
+          title={category ? category.name : ''}
+          hideCartIcon
+        />
         <View style={container}>
           <ListView
             enableEmptySections
@@ -97,7 +101,7 @@ export default class ListProduct extends Component {
                   <View style={productRow}>
                     <Text style={textColor}>{Utils.toTitleCase(product.color)}</Text>
                     <View style={circleColor} />
-                    <TouchableOpacity onPress={this.goToDetail.bind(this)}>
+                    <TouchableOpacity onPress={() => this.goToDetail(product)}>
                       <Text style={txtShowDetail}>SHOW DETAILS</Text>
                     </TouchableOpacity>
                   </View>
