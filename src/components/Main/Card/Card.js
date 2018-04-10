@@ -3,10 +3,10 @@ import {
   View, Text, TouchableOpacity,
   Dimensions, StyleSheet, Image, ListView
 } from 'react-native';
+import Header from '../../../Common/Header';
 import Utils from '../../../utils/Utils';
 import Global from '../../../components/Global';
 
-import Headers from '../Header';
 import Config from '../../../components/Config';
 import saveCart from '../../../api/saveCart';
 import getCart from '../../../api/getCart';
@@ -119,7 +119,11 @@ export default class Card extends Component {
     }
     return (
       <View style={wrapper}>
-        <Headers navigator={this.props.navigation} />
+        <Header
+          navigator={this.props.navigation}
+          title='Cart'
+          hideCartIcon
+        />
         <ListView
           contentContainerStyle={main}
           enableEmptySections

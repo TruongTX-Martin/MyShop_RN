@@ -8,15 +8,20 @@ import {
   StyleSheet,
   TextInput
 } from 'react-native';
-import icMenu from '../../media/appIcon/ic_menu.png';
-import icLogo from '../../media/appIcon/ic_logo.png';
+import icMenu from '../../../media/appIcon/ic_menu.png';
+import icLogo from '../../../media/appIcon/ic_logo.png';
 
 const { height } = Dimensions.get('window');
-export default class Header extends Component {
+export default class HeaderHome extends Component {
 
   onOpenMenu() {
     const { navigator } = this.props;
     navigator.navigate('DrawerOpen');
+  }
+
+  goToCart() {
+    const { navigator } = this.props;
+    navigator.navigate('Card');
   }
   render() {
     const { swrapper, viewTop, imageMenu, title, textInput } = styles;
@@ -27,7 +32,9 @@ export default class Header extends Component {
             <Image source={icMenu} style={imageMenu} />
           </TouchableOpacity>
           <Text style={title}>Wearing a Dress</Text>
-          <Image source={icLogo} style={imageMenu} />
+          <TouchableOpacity onPress={this.goToCart.bind(this)}>
+            <Image source={icLogo} style={imageMenu} />
+          </TouchableOpacity>
         </View>
         <TextInput
           style={textInput}

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   StyleSheet, Text, TouchableOpacity, ScrollView, View, Image, Dimensions
 } from 'react-native';
-import Headers from '../Header';
 import sp1 from '../../../media/temp/sp3.jpeg';
 import sp4 from '../../../media/temp/sp4.jpeg';
 
@@ -23,7 +22,6 @@ export default class Search extends Component {
     } = styles;
     return (
       <View style={wrapper}>
-       <Headers navigator={this.props.navigation} />
         <ScrollView >
           <View style={product}>
             <Image source={sp1} style={productImage} />

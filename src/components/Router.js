@@ -10,6 +10,7 @@ import ChangeInfo from './ChangeInfo/ChangeInfo';
 import OrderHistory from './OrderHistory/OrderHistory';
 import DetailProduct from './Main/DetailProduct/DetailProduct';
 import ListProduct from './Main/ListProduct/ListProduct';
+import Card from './Main/Card/Card';
 import TopProduct from './Main/Home/TopProduct';
 
 export const HomeStack = StackNavigator({
@@ -45,6 +46,13 @@ export const HomeStack = StackNavigator({
     screen: Search,
     navigationOptions: {
       tabBarLabel: 'Search',
+      header: false
+    }
+  },
+  Card: {
+    screen: Card,
+    navigationOptions: {
+      tabBarLabel: 'Card',
       header: false
     }
   }
