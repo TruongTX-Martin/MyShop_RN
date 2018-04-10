@@ -87,8 +87,8 @@ export const Tabbar = TabNavigator({
   }
 );
 export const SlideMenu = DrawerNavigator({
-  Tabbar: {
-    screen: Tabbar,
+  Home: {
+    screen: HomeStack,
     navigationOptions: {
       header: false
     }
@@ -109,6 +109,13 @@ export const SlideMenu = DrawerNavigator({
   OrderHistory: {
     screen: OrderHistory,
     navigationOptions: {
+      header: false
+    }
+  },
+  Contact: {
+    screen: Contact,
+    navigationOptions: {
+      tabBarLabel: 'Contact',
       header: false
     }
   }

@@ -24,15 +24,6 @@ export default class Menu extends Component {
   }
 
   componentDidMount() {
-    // getUser()
-    //   .then(user => {
-    //     if (user) {
-    //       this.setState({
-    //         isLogIn: true,
-    //         user
-    //       });
-    //     }
-    //   });
   }
 
   onLoginSuccess(user) {
@@ -55,6 +46,10 @@ export default class Menu extends Component {
     this.props.navigation.navigate('OrderHistory');
   }
 
+  toContact() {
+    this.props.navigation.navigate('Contact');
+  }
+
   signOut() {
     this.props.navigation.navigate('DrawerClose');
     saveToken('');
@@ -68,15 +63,19 @@ export default class Menu extends Component {
   render() {
     const {
       container, containerProfile, profileStyle,
-      btnSignIn, textSignIn, textUserName, viewUserName,
-      viewCenter, viewBottom
+      textSignIn, textUserName, viewUserName,
+      viewCenter, rowStyle, btnExtendStyle, separateStyle, rowParrenStyle
     } = styles;
 
     const { user } = this.state;
     const logoutJSX = (
       <View>
-        <TouchableOpacity style={btnSignIn} onPress={this.toAuthentication.bind(this)}>
-          <Text style={textSignIn}>SIGN IN</Text>
+        <View style={separateStyle} />
+        <TouchableOpacity style={rowParrenStyle} onPress={this.toAuthentication.bind(this)}>
+          <View style={rowStyle}>
+            <Text style={textSignIn}>Sign In</Text>
+            <Text style={btnExtendStyle}>></Text>
+          </View>
         </TouchableOpacity>
       </View>
     );
@@ -86,17 +85,38 @@ export default class Menu extends Component {
           <Text style={textUserName}>{user ? user.name : ''}</Text>
         </View>
         <View style={viewCenter}>
-          <TouchableOpacity style={btnSignIn} onPress={this.ToOrderHistory.bind(this)}>
-            <Text style={textSignIn}>Order History</Text>
+          <TouchableOpacity style={rowParrenStyle} onPress={this.ToOrderHistory.bind(this)}>
+            <View style={rowStyle}>
+              <Text style={textSignIn}>Order History</Text>
+              <Text style={btnExtendStyle}>></Text>
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity style={btnSignIn} onPress={this.toChangeInfo.bind(this)}>
-            <Text style={textSignIn}>Change Info</Text>
+          <View style={separateStyle} />
+
+          <TouchableOpacity style={rowParrenStyle} onPress={this.toChangeInfo.bind(this)}>
+            <View style={rowStyle}>
+              <Text style={textSignIn}>Change Info</Text>
+              <Text style={btnExtendStyle}>></Text>
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity style={btnSignIn} onPress={this.signOut.bind(this)}>
-            <Text style={textSignIn}>Sign out</Text>
+          <View style={separateStyle} />
+
+          <TouchableOpacity style={rowParrenStyle} onPress={this.signOut.bind(this)}>
+            <View style={rowStyle}>
+              <Text style={textSignIn}>Sign out</Text>
+              <Text style={btnExtendStyle}>></Text>
+            </View>
           </TouchableOpacity>
+          <View style={separateStyle} />
+
+          <TouchableOpacity style={rowParrenStyle} onPress={this.toContact.bind(this)}>
+            <View style={rowStyle}>
+              <Text style={textSignIn}>Contact</Text>
+              <Text style={btnExtendStyle}>></Text>
+            </View>
+          </TouchableOpacity>
+
         </View>
-        <View style={viewBottom} />
       </View>
     );
     const mainJSX = this.state.isLogIn ? loginJSX : logoutJSX;
@@ -117,7 +137,8 @@ const styles = StyleSheet.create({
   },
   containerProfile: {
     alignItems: 'center',
-    marginTop: 20
+    marginTop: 20,
+    marginBottom: 20
   },
   profileStyle: {
     width: 150,
@@ -127,30 +148,50 @@ const styles = StyleSheet.create({
   },
   btnSignIn: {
     height: 50,
-    backgroundColor: '#fff',
+    flex: 1,
     marginTop: 10,
-    marginHorizontal: 20,
     borderRadius: 10,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'flex-start',
+    paddingHorizontal: 10
   },
   textSignIn: {
     fontSize: 20,
-    color: '#34B089'
+    color: '#ffffff',
+    fontWeight: 'bold'
   },
   textUserName: {
     fontSize: 20,
     color: '#fff',
+    fontWeight: 'bold'
   },
   viewUserName: {
     alignItems: 'center',
     marginTop: 10,
-    flex: 0.8
   },
   viewCenter: {
     flex: 1
   },
   viewBottom: {
     flex: 1
+  },
+  rowStyle: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 7
+  },
+  btnExtendStyle: {
+    color: '#fff',
+    fontSize: 20
+  },
+  separateStyle: {
+    height: 1,
+    backgroundColor: '#fff'
+  },
+  rowParrenStyle: {
+    height: 50
   }
 });
