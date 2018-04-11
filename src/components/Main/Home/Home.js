@@ -40,7 +40,7 @@ export default class Home extends Component {
           })
           .catch(() => {
             console.log('check login failed');
-            // saveToken(''); -> not save because api checklogin died
+            saveToken('');
           });
       });
   }
