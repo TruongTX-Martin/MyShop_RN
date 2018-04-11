@@ -47,6 +47,8 @@ export default class Card extends Component {
         id: e.product.id,
         quantity: e.quantity
       }));
+      console.log('token checkout:' + token);
+      console.log('array checkout:' + JSON.stringify(arrayDetail));
       const result = await checkoutCart(token, arrayDetail);
       if (result === 'THEM_THANH_CONG') {
         saveCart([]);

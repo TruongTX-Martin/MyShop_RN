@@ -1,5 +1,5 @@
 const Config = {
-  url: 'http://192.168.90.20/',
-  urlImageProduct: 'http://192.168.90.20/api/images/product/'
+  url: 'https://shoppingappdemo.000webhostapp.com/',
+  urlImageProduct: 'https://shoppingappdemo.000webhostapp.com/api/images/product/'
 };
 export default Config;

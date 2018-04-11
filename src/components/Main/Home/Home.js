@@ -34,11 +34,13 @@ export default class Home extends Component {
       .then(token => {
         checkLogin(token)
           .then(res => {
+            console.log('check login success');
             saveToken(res.token);
             Global.onLoginSuccess(res.user);
           })
           .catch(() => {
-            saveToken('');
+            console.log('check login failed');
+            // saveToken(''); -> not save because api checklogin died
           });
       });
   }
