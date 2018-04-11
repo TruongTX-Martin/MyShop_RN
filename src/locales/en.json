@@ -2,5 +2,13 @@
   "settingScreen": {
     "setting": "Setting",
     "language": "Language"
+  },
+  "slidemenu": {
+    "sign_in": "Sign In",
+    "order_history": "Order History",
+    "change_info": "Change Info",
+    "contact": "Contact",
+    "setting": "Setting",
+    "sign_out": "Sign Out"
   }
 }

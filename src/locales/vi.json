@@ -2,5 +2,13 @@
   "settingScreen": {
     "setting": "Cài đặt",
     "language": "Ngôn ngữ"
+  },
+  "slidemenu": {
+    "sign_in": "Đăng nhập",
+    "order_history": "Lịch sử bán hàng",
+    "change_info": "Thay đổi thông tin",
+    "contact": "Liên hệ",
+    "setting": "Cài đặt",
+    "sign_out": "Đăng xuất"
   }
 }

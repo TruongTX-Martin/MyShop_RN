@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Utils from '../../../utils/Utils';
 import Global from '../../../components/Global';
+import { strings } from '../../../i18n';
 import imgProfile from '../../../media/temp/profile.png';
 import saveToken from '../../../api/saveToken';
 import imgExtend from '../../../media/appIcon/ic_extend.png';
@@ -25,6 +26,7 @@ export default class Menu extends Component {
   }
 
   componentDidMount() {
+    console.log('component did mount');
   }
 
   onLoginSuccess(user) {
@@ -78,7 +80,7 @@ export default class Menu extends Component {
         <View style={separateStyle} />
         <TouchableOpacity style={rowParrenStyle} onPress={this.toAuthentication.bind(this)}>
           <View style={rowStyle}>
-            <Text style={textSignIn}>Sign In</Text>
+            <Text style={textSignIn}>{strings('slidemenu.sign_in')}</Text>
             <Image style={btnExtendStyle} source={imgExtend} />
           </View>
         </TouchableOpacity>
@@ -92,7 +94,7 @@ export default class Menu extends Component {
         <View style={viewCenter}>
           <TouchableOpacity style={rowParrenStyle} onPress={this.ToOrderHistory.bind(this)}>
             <View style={rowStyle}>
-              <Text style={textSignIn}>Order History</Text>
+              <Text style={textSignIn}>{strings('slidemenu.order_history')}</Text>
               <Image style={btnExtendStyle} source={imgExtend} />
             </View>
           </TouchableOpacity>
@@ -100,7 +102,7 @@ export default class Menu extends Component {
 
           <TouchableOpacity style={rowParrenStyle} onPress={this.toChangeInfo.bind(this)}>
             <View style={rowStyle}>
-              <Text style={textSignIn}>Change Info</Text>
+              <Text style={textSignIn}>{strings('slidemenu.change_info')}</Text>
               <Image style={btnExtendStyle} source={imgExtend} />
             </View>
           </TouchableOpacity>
@@ -108,7 +110,7 @@ export default class Menu extends Component {
 
           <TouchableOpacity style={rowParrenStyle} onPress={this.toContact.bind(this)}>
             <View style={rowStyle}>
-              <Text style={textSignIn}>Contact</Text>
+              <Text style={textSignIn}>{strings('slidemenu.contact')}</Text>
               <Image style={btnExtendStyle} source={imgExtend} />
             </View>
           </TouchableOpacity>
@@ -116,7 +118,7 @@ export default class Menu extends Component {
 
           <TouchableOpacity style={rowParrenStyle} onPress={this.toSetting.bind(this)}>
             <View style={rowStyle}>
-              <Text style={textSignIn}>Setting</Text>
+              <Text style={textSignIn}>{strings('slidemenu.setting')}</Text>
               <Image style={btnExtendStyle} source={imgExtend} />
             </View>
           </TouchableOpacity>
@@ -124,7 +126,7 @@ export default class Menu extends Component {
 
           <TouchableOpacity style={rowParrenStyle} onPress={this.signOut.bind(this)}>
             <View style={rowStyle}>
-              <Text style={textSignIn}>Sign out</Text>
+              <Text style={textSignIn}>{strings('slidemenu.sign_out')}</Text>
               <Image style={btnExtendStyle} source={imgExtend} />
             </View>
           </TouchableOpacity>
