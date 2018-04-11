@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import I18n from 'react-native-i18n';
 import { StatusBar } from 'react-native';
+import store from '../store/store';
 import { SlideMenu } from './Router';
 import refreshToken from '../api/refreshToken';
 import getToken from '../api/getToken';
@@ -30,7 +32,9 @@ export default class App extends Component {
   }
   render() {
     return (
-      <SlideMenu />
+      <Provider store={store}>
+        <SlideMenu />
+      </Provider>
     );
   }
 }

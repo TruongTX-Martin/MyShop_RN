@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { connect } from 'react-redux';
 import Utils from '../../utils/Utils';
 import signIn from '../../api/signIn';
 import Global from '../Global';
 import saveToken from '../../api/saveToken';
+import * as actions from '../../actions';
 
-export default class SignIn extends Component {
+
+class SignIn extends Component {
 
   constructor(props) {
     super(props);
@@ -34,21 +37,23 @@ export default class SignIn extends Component {
   }
 
   signIn() {
-    const { email, password } = this.state;
-    if (!email) {
-      Utils.showToast('Please type your email');
-      return;
-    }
-    if (!password) {
-      Utils.showToast('Please type your password');
-      return;
-    }
-    signIn(email, password)
-      .then(res => {
-        console.log('Data return:' + JSON.stringify(res));
-        this.onSignInSuccess(res);
-      })
-      .catch(error => this.onSignInError(error));
+    console.log('click login');
+    this.props.login();
+    // const { email, password } = this.state;
+    // if (!email) {
+    //   Utils.showToast('Please type your email');
+    //   return;
+    // }
+    // if (!password) {
+    //   Utils.showToast('Please type your password');
+    //   return;
+    // }
+    // signIn(email, password)
+    //   .then(res => {
+    //     console.log('Data return:' + JSON.stringify(res));
+    //     this.onSignInSuccess(res);
+    //   })
+    //   .catch(error => this.onSignInError(error));
   }
 
   render() {
@@ -78,6 +83,12 @@ export default class SignIn extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  counter: state.counter
+});
+
+export default connect(mapStateToProps, actions)(SignIn);
 
 const borderRadiusButton = 20;
 const marginHorizontalInput = 30;

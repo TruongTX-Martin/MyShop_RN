@@ -13,7 +13,11 @@
     "react-native-i18n": "^2.0.12",
     "react-native-root-toast": "^3.0.1",
     "react-native-swiper": "^1.5.13",
-    "react-navigation": "^1.5.8"
+    "react-navigation": "^1.5.8",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "redux-observable": "^0.18.0",
+    "rxjs": "^5.5.9"
   },
   "devDependencies": {
     "babel-jest": "23.0.0-alpha.0",
