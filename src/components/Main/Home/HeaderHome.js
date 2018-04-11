@@ -20,7 +20,8 @@ export default class HeaderHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalCart: 0
+      totalCart: 0,
+      search: ''
     };
     Global.refreshTotalCart = this.getTotalCart.bind(this);
   }
@@ -69,6 +70,15 @@ export default class HeaderHome extends Component {
           style={textInput}
           placeholder="What do you want to buy?"
           underlineColorAndroid="transparent"
+          returnKeyType='search'
+          value={this.state.search}
+          onChangeText={search => this.setState({ search })}
+          onSubmitEditing={() => {
+            if (this.state.search.trim()) {
+              const { navigator } = this.props;
+              navigator.navigate('Search', { search: this.state.search.trim(), navigator: this.props.navigator });
+            }
+          }}
         />
       </View>
     );
