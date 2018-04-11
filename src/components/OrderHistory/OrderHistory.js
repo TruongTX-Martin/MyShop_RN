@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, TouchableOpacity, Text, Image, StyleSheet, Dimensions, ScrollView, ListView
+  View, TouchableOpacity, Text, Image, StyleSheet, Dimensions, ListView
 } from 'react-native';
 import getOrderHistory from '../../api/getOrderHistory';
 import getToken from '../../api/getToken';
@@ -48,7 +48,9 @@ export default class OrderHistory extends Component {
           <ListView
             enableEmptySections
             dataSource={
-              new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(this.state.arrOrder)
+              new ListView.DataSource({
+                rowHasChanged: (r1, r2) => r1 !== r2
+              }).cloneWithRows(this.state.arrOrder)
             }
             renderRow={order => (
               <View style={orderRow}>

@@ -7,7 +7,7 @@ import {
   Image,
   ListView, RefreshControl
 } from 'react-native';
-import Header from '../../../Common/Header';
+import Header from '../../Common/Header';
 import getListProduct from '../../../api/getListProduct';
 import Config from '../../Config';
 import Utils from '../../../utils/Utils';

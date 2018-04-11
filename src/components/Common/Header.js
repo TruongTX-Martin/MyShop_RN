@@ -8,8 +8,8 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import backSpecial from '../media/appIcon/back_white.png';
-import icLogo from '../media/appIcon/ic_logo.png';
+import backSpecial from '../../media/appIcon/back_white.png';
+import icLogo from '../../media/appIcon/ic_logo.png';
 
 const { height } = Dimensions.get('window');
 export default class Header extends Component {

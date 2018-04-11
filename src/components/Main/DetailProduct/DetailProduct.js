@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity
 } from 'react-native';
-import Header from '../../../Common/Header';
+import Header from '../../Common/Header';
 import Config from '../../Config';
 import getCart from '../../../api/getCart';
 import saveCart from '../../../api/saveCart';

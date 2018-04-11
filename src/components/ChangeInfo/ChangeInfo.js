@@ -22,7 +22,6 @@ export default class ChangeInfo extends Component {
 
   componentDidMount() {
     const user = this.props.navigation.state.params.user;
-    console.log('To Change Info' + JSON.stringify(user));
     this.setState({
       name: user.name,
       address: user.address,
@@ -41,7 +40,7 @@ export default class ChangeInfo extends Component {
             this.props.navigation.pop();
             Utils.showToast('Save infor success');
           })
-          .catch(error => console.log('Change info error:' + error));
+          .catch(error => console.log(error));
       });
   }
 

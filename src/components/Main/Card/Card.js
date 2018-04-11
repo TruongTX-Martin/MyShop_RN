@@ -3,7 +3,7 @@ import {
   View, Text, TouchableOpacity,
   Dimensions, StyleSheet, Image, ListView
 } from 'react-native';
-import Header from '../../../Common/Header';
+import Header from '../../Common/Header';
 import Utils from '../../../utils/Utils';
 import Global from '../../../components/Global';
 
